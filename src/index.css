@@ -1,13 +1,92 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&display=swap');
+
+
+*{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* font-family: 'Playfair Display', serif;
+font-family: 'Poppins', sans-serif; */
+
+/* navbar or header css */
+.navbar{
+  font-family:'Poppins', sans-serif; 
+  font-size: 17px;
+  line-height: 26px;
+  text-transform: uppercase;
+  box-shadow: 0 8px 6px -6px gray;
+  background: linear-gradient(to bottom, gray,whitesmoke);
+  border-bottom: 0px solid gray !important;
+  /* --webkit-box-shadow: */
+}
+.active{
+  border-bottom: 1px solid black;
+}
+.navbar-brand{
+  font-family: "roboto",sans-serif;
+  font-weight: 700;
+  letter-spacing: 3px;
+  font-size: 25px;
+  color:#434343;
+}
+
+/* Footer css */
+.footer{
+  color: white;
+padding: 15px;
+background-color: #000000;
+background: linear-gradient(to left, #434343,#000000);
+}
+.footer a{
+  color: whitesmoke;
+  /* margin-right: 20px; */
+  padding: 10px;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+.footer a:hover {
+  color:#ffefba;
+  border-bottom: 1px solid whitesmoke;
+
+}
+/* page not found button css */
+.pageNotFound a{
+text-decoration: none;
+color: whitesmoke;
+
+
+}
+.pageNotFound{
+  padding: 15px;
+  margin-top: 10px;
+  border:none;
+  background-color: #434343;
+  border-radius: 5px;
+
+
+}
+
+/* contact page css */
+
+.contact{
+  display: grid;
+  column-gap: 10px;
+  /* row-gap: 50px; */
+  grid-template-columns: auto auto auto;
+  background-color: whitesmoke;
+  padding: 10px;
+}
+
+/* register page css */
+
+.register{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+  height:100vh
+
 }
