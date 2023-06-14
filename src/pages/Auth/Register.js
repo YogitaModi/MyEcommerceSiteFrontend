@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Layout from "../../components/layout/Layout";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [register, setRegister] = useState({
@@ -9,14 +11,36 @@ const Register = () => {
     password: "",
     phone: "",
     address: "",
-    register: "",
   });
+  const navigate = useNavigate();
   const onchange = (e) => {
     setRegister({ ...register, [e.target.name]: e.target.value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    toast.success("registered easily");
+    const { name, email, password, phone, address } = register;
+
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API}/api/v1/auth/register`,
+        {
+          name: name,
+          email: email,
+          password: password,
+          phone: phone,
+          address: address,
+        }
+      );
+      if (res && res.data.success) {
+        toast.success(res.data.message);
+        navigate("/userlogin");
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      console.log("error is ", error);
+      toast.error("something went wrong");
+    }
   };
   return (
     <Layout title={"Register now- Chocolate Crisp"}>
@@ -24,13 +48,13 @@ const Register = () => {
         <h1>Register Page</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label for="exampleInputEmail1" className="form-label">
+            <label htmlFor="name" className="form-label">
               Name
             </label>
             <input
               type="text"
               className="form-control"
-              id="exampleInputEmail1"
+              id="name"
               value={register.name}
               name="name"
               onChange={onchange}
@@ -39,13 +63,13 @@ const Register = () => {
           </div>
 
           <div className="mb-3">
-            <label for="exampleInputEmail1" className="form-label">
+            <label htmlFor="email" className="form-label">
               Email address
             </label>
             <input
               type="email"
               className="form-control"
-              id="exampleInputEmail1"
+              id="email"
               value={register.email}
               name="email"
               onChange={onchange}
@@ -53,13 +77,13 @@ const Register = () => {
             />
           </div>
           <div className="mb-3">
-            <label for="exampleInputPassword1" className="form-label">
+            <label htmlFor="password" className="form-label">
               Password
             </label>
             <input
               type="password"
               className="form-control"
-              id="exampleInputPassword1"
+              id="password"
               value={register.password}
               name="password"
               onChange={onchange}
@@ -67,13 +91,13 @@ const Register = () => {
             />
           </div>
           <div className="mb-3">
-            <label for="exampleInputEmail1" className="form-label">
+            <label htmlFor="phone" className="form-label">
               Phone
             </label>
             <input
               type="Number"
               className="form-control"
-              id="exampleInputEmail1"
+              id="phone"
               value={register.phone}
               name="phone"
               onChange={onchange}
@@ -81,13 +105,13 @@ const Register = () => {
             />
           </div>
           <div className="mb-3">
-            <label for="exampleInputEmail1" className="form-label">
+            <label htmlFor="address" className="form-label">
               Address
             </label>
             <input
               type="text"
               className="form-control"
-              id="exampleInputEmail1"
+              id="address"
               value={register.address}
               name="address"
               onChange={onchange}
