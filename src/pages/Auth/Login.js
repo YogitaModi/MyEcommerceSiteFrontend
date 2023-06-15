@@ -2,66 +2,56 @@ import React, { useState } from "react";
 import Layout from "../../components/layout/Layout";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../context/authContext";
 
-const Register = () => {
+const Login = () => {
+  const [auth, setAuth] = useAuth();
   const [register, setRegister] = useState({
-    name: "",
     email: "",
     password: "",
-    phone: "",
-    address: "",
   });
   const navigate = useNavigate();
+  const location = useLocation();
   const onchange = (e) => {
     setRegister({ ...register, [e.target.name]: e.target.value });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, password, phone, address } = register;
+    const { email, password } = register;
 
     try {
       const res = await axios.post(
-        `${process.env.REACT_APP_API}/api/v1/auth/register`,
+        `${process.env.REACT_APP_API}/api/v1/auth/userlogin`,
         {
-          name: name,
           email: email,
           password: password,
-          phone: phone,
-          address: address,
         }
       );
       if (res && res.data.success) {
+        setAuth({
+          ...auth,
+          user: res.data.user,
+          authtoken: res.data.authtoken,
+        });
+        console.log(res);
+        navigate(location.state || "/");
         toast.success(res.data.message);
-        navigate("/userlogin");
+
+        localStorage.setItem("auth", JSON.stringify(res.data));
       } else {
         toast.error(res.data.message);
       }
     } catch (error) {
       console.log("error is ", error);
-      toast.error("something went wrong");
+      toast.error("Something went wrong");
     }
   };
   return (
-    <Layout title={"Register now- Chocolate Crisp"}>
+    <Layout title={"Login now- Chocolate Crisp"}>
       <div className="form-container title">
-        <h1 className="title">Register Page</h1>
+        <h1 className="title">LOGIN PAGE</h1>
         <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="name" className="form-label">
-              Name
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              value={register.name}
-              name="name"
-              onChange={onchange}
-              required
-            />
-          </div>
-
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
               Email address
@@ -90,37 +80,9 @@ const Register = () => {
               required
             />
           </div>
-          <div className="mb-3">
-            <label htmlFor="phone" className="form-label">
-              Phone
-            </label>
-            <input
-              type="Number"
-              className="form-control"
-              id="phone"
-              value={register.phone}
-              name="phone"
-              onChange={onchange}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="address" className="form-label">
-              Address
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              id="address"
-              value={register.address}
-              name="address"
-              onChange={onchange}
-              required
-            />
-          </div>
 
           <button type="submit" className="btn btn-primary">
-            Submit
+            Login
           </button>
         </form>
       </div>
@@ -128,4 +90,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Login;

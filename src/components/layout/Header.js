@@ -2,8 +2,20 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { GiChocolateBar } from "react-icons/gi";
 import { BsShop } from "react-icons/bs";
+import { useAuth } from "../../context/authContext";
 
+import toast from "react-hot-toast";
 const Header = () => {
+  const [auth, setAuth] = useAuth();
+  const handleLogout = () => {
+    localStorage.removeItem("auth");
+    setAuth({
+      ...auth,
+      user: null,
+      authtoken: "",
+    });
+    toast.success("Logout Successfully");
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary ">
@@ -34,21 +46,36 @@ const Header = () => {
                   Category
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/register">
-                  Register
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/userlogin">
-                  Login
-                </NavLink>
-              </li>
+              {!auth.user ? (
+                <>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/register">
+                      Register
+                    </NavLink>
+                  </li>
+
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/userlogin">
+                      Login
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <li className="nav-item">
+                  <NavLink
+                    className="nav-link"
+                    to="/userlogin"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </NavLink>
+                </li>
+              )}
               <li className="nav-item">
                 <NavLink className="nav-link" to="/cart">
                   <BsShop />
-                  <span class="position-fixed translate-middle badge rounded-pill bg-danger">
-                    1<span class="visually-hidden">unread messages</span>
+                  <span className="position-fixed translate-middle badge rounded-pill bg-danger">
+                    1<span className="visually-hidden">unread messages</span>
                   </span>
                 </NavLink>
               </li>
