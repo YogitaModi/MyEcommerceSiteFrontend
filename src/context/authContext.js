@@ -9,7 +9,7 @@ const Authprovider = (props) => {
   });
 
   // setting headers by default
-  axios.defaults.headers.common["Authorization"] = auth?.authtoken;
+  // axios.defaults.headers.common["Authorization"] = auth?.authtoken;
 
   useEffect(() => {
     const data = localStorage.getItem("auth");

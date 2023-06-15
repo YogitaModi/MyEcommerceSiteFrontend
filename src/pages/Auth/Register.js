@@ -11,6 +11,7 @@ const Register = () => {
     password: "",
     phone: "",
     address: "",
+    answer: "",
   });
   const navigate = useNavigate();
   const onchange = (e) => {
@@ -18,7 +19,7 @@ const Register = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, email, password, phone, address } = register;
+    const { name, email, password, phone, address, answer } = register;
 
     try {
       const res = await axios.post(
@@ -29,6 +30,7 @@ const Register = () => {
           password: password,
           phone: phone,
           address: address,
+          answer: answer,
         }
       );
       if (res && res.data.success) {
@@ -114,6 +116,20 @@ const Register = () => {
               id="address"
               value={register.address}
               name="address"
+              onChange={onchange}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="answer" className="form-label">
+              What is the name of your primary school?
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="answer"
+              value={register.answer}
+              name="answer"
               onChange={onchange}
               required
             />
