@@ -7,11 +7,17 @@ import Policy from "./pages/Policy";
 import Pagenotfound from "./pages/Pagenotfound";
 import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
-import Dashboard from "./user/Dashboard";
+
 import Private from "./components/routes/Private";
 import Forgotpassword from "./pages/Auth/Forgotpassword";
 import Adminroute from "./components/routes/Adminroute";
 import Admindashboard from "./pages/Admin/Admindashboard";
+import CreateCategory from "./pages/Admin/CreateCategory";
+import CreateProduct from "./pages/Admin/CreateProduct";
+import Users from "./pages/Admin/Users";
+import UserDashboard from "./user/UserDashboard";
+import Order from "./user/Order";
+import Profile from "./user/Profile";
 
 function App() {
   return (
@@ -23,14 +29,27 @@ function App() {
         <Route exact path="/policy" element={<Policy />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/dashboard" element={<Private />}>
-          <Route path="user" element={<Dashboard />} />
+          <Route path="user" element={<UserDashboard />} />
+          <Route exact path="user/orders" element={<Order />} />
+          <Route exact path="user/profile" element={<Profile />} />
         </Route>
         <Route exact path="/dashboard" element={<Adminroute />}>
           <Route exact path="admin" element={<Admindashboard />} />
+          <Route
+            exact
+            path="admin/create-category"
+            element={<CreateCategory />}
+          />
+          <Route
+            exact
+            path="admin/create-product"
+            element={<CreateProduct />}
+          />
+          <Route exact path="admin/users" element={<Users />} />
         </Route>
         <Route exact path="/userlogin" element={<Login />} />
         <Route exact path="/forgot-password" element={<Forgotpassword />} />
-        <Route exact path="/*" element={<Pagenotfound />} />
+        <Route exact path="*" element={<Pagenotfound />} />
       </Routes>
     </>
   );
