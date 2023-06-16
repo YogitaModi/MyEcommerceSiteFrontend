@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 import Spinner from "../Spinner";
 
 const Private = () => {
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   let [success, setSuccess] = useState(false);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const Private = () => {
       }
     };
     if (auth?.authtoken) authCheck();
-  }, [auth?.authtoken]);
+  }, [auth?.authtoken, auth?.user?.role]);
 
   return success ? <Outlet /> : <Spinner path="" />;
 };
