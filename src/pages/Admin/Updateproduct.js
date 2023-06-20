@@ -5,21 +5,22 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Select } from "antd";
 import { useAuth } from "../../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const CreateProduct = () => {
+const Updateproduct = () => {
+  const params = useParams();
   const [auth] = useAuth();
   const navigate = useNavigate();
   const { Option } = Select;
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(0);
   const [category, setCategory] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(0);
   const [image, setImage] = useState("");
   const [shipping, setShipping] = useState("");
-
+  const [id, setId] = useState("");
   // fetching all category
   const getAllCategories = async () => {
     try {
@@ -27,7 +28,6 @@ const CreateProduct = () => {
         `${process.env.REACT_APP_API}/api/v1/category/get-categories`
       );
       if (res?.data?.success) {
-        console.log("category are ", res.data);
         setCategories(res.data.category);
       }
     } catch (error) {
@@ -40,8 +40,33 @@ const CreateProduct = () => {
     // eslint-disable-next-line
   }, []);
 
-  // creating new product
-  const handleCreateProduct = async (e) => {
+  //   fetching single product
+  const getSingleProduct = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API}/api/v1/product/get-product/${params.slug}`
+      );
+      if (res?.data?.success) {
+        setName(res.data.product.name);
+        setId(res.data.product._id);
+        setDescription(res.data.product.description);
+        setPrice(res.data.product.price);
+        setQuantity(res.data.product.quantity);
+        setShipping(res.data.product.shipping);
+        setCategory(res.data.product.category._id);
+      }
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+  };
+
+  useEffect(() => {
+    getSingleProduct();
+    // eslint-disable-next-line
+  }, []);
+
+  // updating new product
+  const handleUpdateProduct = async (e) => {
     e.preventDefault();
     try {
       // we have image as input that is why we are providing req.body like this
@@ -52,20 +77,43 @@ const CreateProduct = () => {
       productData.append("category", category);
       productData.append("quantity", quantity);
       productData.append("shipping", shipping);
-      productData.append("image", image);
-      const res = await axios.post(
-        `${process.env.REACT_APP_API}/api/v1/product/create-product`,
+      image && productData.append("image", image);
+      const res = await axios.put(
+        `${process.env.REACT_APP_API}/api/v1/product/update-product/${id}`,
         productData,
         { headers: { Authorization: auth?.authtoken } }
       );
-      if (res?.data?.success) {
+      if (res?.data.success) {
         toast.success(res.data.message);
         navigate("/dashboard/admin/products");
       } else {
-        toast.error(res?.data?.message);
+        toast.error(res.data.message);
       }
     } catch (error) {
+      console.log(error);
       toast.error("Something went wrong");
+    }
+  };
+
+  // Deleting the product
+
+  const handleDeleteProduct = async (e) => {
+    e.preventDefault();
+    let confirmation = window.prompt("You really want to delete this product?");
+    if (confirmation === "Yes") {
+      try {
+        const res = await axios.delete(
+          `${process.env.REACT_APP_API}/api/v1/product/delete-product/${id}`,
+          { headers: { Authorization: auth?.authtoken } }
+        );
+        if (res.data.success) {
+          toast.success(res.data.message);
+          navigate("/dashboard/admin/products");
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("Something went wrong");
+      }
     }
   };
 
@@ -86,16 +134,17 @@ const CreateProduct = () => {
                 showSearch
                 className="form-select mb-3"
                 onChange={(value) => setCategory(value)}
+                value={category}
               >
-                {categories?.map((value) => (
-                  <Option key={value._id} value={value._id}>
-                    {value.name}
+                {categories?.map((c) => (
+                  <Option key={c._id} value={c._id}>
+                    {c.name}
                   </Option>
                 ))}
               </Select>
               <div className="mb-3">
                 <label className="btn btn-outline-secondary col-md-12">
-                  {image ? image.name : "Image Uploaded"}
+                  {image ? image.name : "Image Upload"}
                   <input
                     type="file"
                     name="image"
@@ -106,10 +155,19 @@ const CreateProduct = () => {
                 </label>
               </div>
               <div className="mb-3">
-                {image && (
+                {image ? (
                   <div className="text-center">
                     <img
                       src={URL.createObjectURL(image)}
+                      alt="Product-image"
+                      height={"200px"}
+                      className="img img-responsive"
+                    />
+                  </div>
+                ) : (
+                  <div className="text-center">
+                    <img
+                      src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${id}`}
                       alt="Product Image"
                       height={"200px"}
                       className="img img-responsive"
@@ -161,6 +219,7 @@ const CreateProduct = () => {
                   showSearch
                   className="form-select mb-3"
                   onChange={(value) => setShipping(value)}
+                  value={shipping ? "Yes" : "No"}
                 >
                   <Option value="1">Yes</Option>
                   <Option value="0">No</Option>
@@ -168,10 +227,16 @@ const CreateProduct = () => {
               </div>
               <div className="mb-3 text-center">
                 <button
-                  className="btn btn-primary"
-                  onClick={handleCreateProduct}
+                  className="btn btn-primary m-2"
+                  onClick={handleUpdateProduct}
                 >
-                  Create Product
+                  Update Product
+                </button>
+                <button
+                  className="btn btn-danger m-2"
+                  onClick={handleDeleteProduct}
+                >
+                  Delete Product
                 </button>
               </div>
             </div>
@@ -182,4 +247,4 @@ const CreateProduct = () => {
   );
 };
 
-export default CreateProduct;
+export default Updateproduct;

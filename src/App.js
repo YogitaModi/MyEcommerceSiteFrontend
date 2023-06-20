@@ -7,7 +7,6 @@ import Policy from "./pages/Policy";
 import Pagenotfound from "./pages/Pagenotfound";
 import Register from "./pages/Auth/Register";
 import Login from "./pages/Auth/Login";
-
 import Private from "./components/routes/Private";
 import Forgotpassword from "./pages/Auth/Forgotpassword";
 import Adminroute from "./components/routes/Adminroute";
@@ -18,6 +17,8 @@ import Users from "./pages/Admin/Users";
 import UserDashboard from "./user/UserDashboard";
 import Order from "./user/Order";
 import Profile from "./user/Profile";
+import Products from "./pages/Admin/Products";
+import Updateproduct from "./pages/Admin/Updateproduct";
 
 function App() {
   return (
@@ -45,6 +46,8 @@ function App() {
             path="admin/create-product"
             element={<CreateProduct />}
           />
+          <Route exact path="admin/products" element={<Products />} />
+          <Route exact path="admin/product/:slug" element={<Updateproduct />} />
           <Route exact path="admin/users" element={<Users />} />
         </Route>
         <Route exact path="/userlogin" element={<Login />} />
