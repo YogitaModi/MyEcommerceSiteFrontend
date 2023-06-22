@@ -5,6 +5,7 @@ import { BsShop } from "react-icons/bs";
 import { useAuth } from "../../context/authContext";
 
 import toast from "react-hot-toast";
+import Searchinput from "../forms/Searchinput";
 const Header = () => {
   const [auth, setAuth] = useAuth();
   const handleLogout = () => {
@@ -36,6 +37,7 @@ const Header = () => {
               <GiChocolateBar /> Chocolate Crisp
             </Link>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <Searchinput />
               <li className="nav-item">
                 <NavLink className="nav-link " to="/">
                   Home

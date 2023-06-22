@@ -19,16 +19,19 @@ import Order from "./user/Order";
 import Profile from "./user/Profile";
 import Products from "./pages/Admin/Products";
 import Updateproduct from "./pages/Admin/Updateproduct";
+import Search from "./pages/Search";
 
 function App() {
   return (
     <>
       <Routes>
+        <Route exact path="/search" element={<Search />} />
         <Route exact path="/" element={<Homepage />} />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/policy" element={<Policy />} />
         <Route exact path="/register" element={<Register />} />
+
         <Route exact path="/dashboard" element={<Private />}>
           <Route path="user" element={<UserDashboard />} />
           <Route exact path="user/orders" element={<Order />} />
