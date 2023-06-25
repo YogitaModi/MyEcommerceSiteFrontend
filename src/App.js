@@ -20,6 +20,7 @@ import Profile from "./user/Profile";
 import Products from "./pages/Admin/Products";
 import Updateproduct from "./pages/Admin/Updateproduct";
 import Search from "./pages/Search";
+import ProductDetails from "./pages/ProductDetails";
 
 function App() {
   return (
@@ -27,6 +28,11 @@ function App() {
       <Routes>
         <Route exact path="/search" element={<Search />} />
         <Route exact path="/" element={<Homepage />} />
+        <Route
+          exact
+          path="/product-details/:slug"
+          element={<ProductDetails />}
+        />
         <Route exact path="/about" element={<About />} />
         <Route exact path="/contact" element={<Contact />} />
         <Route exact path="/policy" element={<Policy />} />

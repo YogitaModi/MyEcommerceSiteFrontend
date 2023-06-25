@@ -3,8 +3,11 @@ import Layout from "../components/layout/Layout";
 import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Price } from "../components/Pricefilter";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
+  const navigate = useNavigate();
+
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
   const [category, setCategory] = useState([]);
@@ -135,12 +138,15 @@ const Homepage = () => {
 
                   <p className="card-text">INR : {item.price}</p>
 
-                  <button to="#" className="btn btn-primary m-2">
+                  <button
+                    onClick={() => {
+                      navigate(`/product-details/${item.slug}`);
+                    }}
+                    className="btn btn-primary m-2"
+                  >
                     More details
                   </button>
-                  <button to="#" className="btn btn-secondary m-2">
-                    Add to cart
-                  </button>
+                  <button className="btn btn-secondary m-2">Add to cart</button>
                 </div>
               </div>
             ))}
