@@ -1,19 +1,37 @@
 import React, { useState, useEffect } from "react";
 import Layout from "../components/layout/Layout";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ProductDetails = () => {
   const [details, setDetails] = useState({});
+  const navigate = useNavigate();
+  const [relatedProducts, setRelatedProducts] = useState([]);
   const params = useParams();
 
+  const RelatedProducts = async (pid, cid) => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API}/api/v1/product/related-product/${pid}/${cid}`
+      );
+      if (res?.data.success) {
+        setRelatedProducts(res?.data?.products);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const productDetails = async () => {
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_API}/api/v1/product/get-product/${params.slug}`
       );
-      if (res?.data?.product) {
+      if (res?.data?.success) {
         setDetails(res.data.product);
+        RelatedProducts(
+          res?.data?.product._id,
+          res?.data?.product.category._id
+        );
       }
     } catch (error) {
       console.log(error);
@@ -24,6 +42,7 @@ const ProductDetails = () => {
       productDetails();
     }
   }, [params?.slug]);
+
   return (
     <Layout>
       <div className="row container mt-2">
@@ -32,6 +51,8 @@ const ProductDetails = () => {
             src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${details._id}`}
             className="card-img-top"
             alt={details.name}
+            width={"200px"}
+            height={"450px"}
           />
         </div>
         <div className="col-md-6">
@@ -48,7 +69,39 @@ const ProductDetails = () => {
           <button className="btn btn-secondary m-2">Add to cart</button>
         </div>
       </div>
-      <div className="row m-2">Similar Products</div>
+      <div className="row m-2">
+        <h1>Similar Products</h1>
+        {relatedProducts.length < 1 && (
+          <p className="text-center">No Similar Products found</p>
+        )}
+        <div className="d-flex flex-wrap mb-2">
+          {relatedProducts?.map((item) => (
+            <div className="card m-2" style={{ width: "20rem" }}>
+              <img
+                src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${item._id}`}
+                className="card-img-top"
+                alt={item.name}
+              />
+              <div className="card-body">
+                <h5 className="card-title">{item.name}</h5>
+                <p className="card-text">
+                  {item.description.substring(0, 30)}...
+                </p>
+
+                <p className="card-text">INR : {item.price}</p>
+                <button
+                  className="btn btn-primary ms-1"
+                  onClick={() => navigate(`/product-details/${item.slug}`)}
+                >
+                  More Details
+                </button>
+
+                <button className="btn btn-secondary m-2">Add to cart</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </Layout>
   );
 };
