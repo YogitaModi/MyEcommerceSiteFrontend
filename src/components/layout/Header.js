@@ -6,9 +6,11 @@ import { useAuth } from "../../context/authContext";
 import toast from "react-hot-toast";
 import Searchinput from "../forms/Searchinput";
 import useCategory from "../../hooks/useCategory";
+import { useCart } from "../../context/cartContext";
 
 const Header = () => {
   const [auth, setAuth] = useAuth();
+  const [cart] = useCart();
   const categories = useCategory();
   const handleLogout = () => {
     localStorage.removeItem("auth");
@@ -127,7 +129,7 @@ const Header = () => {
                 <NavLink className="nav-link" to="/cart">
                   <BsShop />
                   <span className="position-relative translate-middle badge rounded-pill bg-danger">
-                    0 <span className="visually-hidden">unread messages</span>
+                    {cart?.length}
                   </span>
                 </NavLink>
               </li>

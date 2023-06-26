@@ -19,7 +19,7 @@ const Private = () => {
           },
         }
       );
-      if (res.data.success && auth.user.role === 0) {
+      if (res.data.success && auth?.user?.role === 0) {
         setSuccess(true);
       } else {
         setSuccess(false);

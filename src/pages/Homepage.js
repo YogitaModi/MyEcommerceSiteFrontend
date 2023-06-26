@@ -4,17 +4,20 @@ import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Price } from "../components/Pricefilter";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/cartContext";
+import { toast } from "react-hot-toast";
 
 const Homepage = () => {
   const navigate = useNavigate();
+  const [cart, setCart] = useCart();
 
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
   const [category, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1);
+  // const [total, setTotal] = useState(0);
+  // const [loading, setLoading] = useState(true);
+  // const [page, setPage] = useState(1);
 
   // fetching category
   const getAllCategories = async () => {
@@ -37,14 +40,12 @@ const Homepage = () => {
   // fetching product
   const getAllProducts = async () => {
     try {
-      setLoading(true);
       const res = await axios.get(
         `${process.env.REACT_APP_API}/api/v1/product/get-products`
       );
-      setLoading(false);
+
       if (res?.data.success) {
         setProducts(res.data.product);
-        setTotal(res.data.totalProduct);
       }
     } catch (error) {
       console.log(error);
@@ -146,7 +147,19 @@ const Homepage = () => {
                   >
                     More details
                   </button>
-                  <button className="btn btn-secondary m-2">Add to cart</button>
+                  <button
+                    className="btn btn-secondary m-2"
+                    onClick={() => {
+                      setCart([...cart, item]);
+                      toast.success("Product added to cart successfully");
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, item])
+                      );
+                    }}
+                  >
+                    Add to cart
+                  </button>
                 </div>
               </div>
             ))}
