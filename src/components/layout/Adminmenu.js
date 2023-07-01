@@ -31,6 +31,12 @@ const Adminmenu = () => {
           >
             Users
           </NavLink>
+          <NavLink
+            to="/dashboard/admin/all-orders"
+            className="list-group-item list-group-item-action"
+          >
+            Orders
+          </NavLink>
         </div>
       </div>
     </>

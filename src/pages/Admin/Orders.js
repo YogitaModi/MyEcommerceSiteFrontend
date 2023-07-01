@@ -1,18 +1,51 @@
-import React, { useEffect, useState } from "react";
-import Layout from "../components/layout/Layout";
-import Usermenu from "../components/layout/Usermenu";
 import { toast } from "react-hot-toast";
-import { useAuth } from "../context/authContext";
+import Adminmenu from "../../components/layout/Adminmenu";
+import Layout from "../../components/layout/Layout";
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../context/authContext";
 import axios from "axios";
 import moment from "moment";
+import { Select } from "antd";
+const { Option } = Select;
 
-const Order = () => {
-  const [orders, setOrders] = useState([]);
+const Orders = () => {
+  const [status, setStatus] = useState([
+    "Not Processed",
+    "Processing",
+    "Shipped",
+    "Out for Delivery",
+    "Deliverd",
+    "Cancelled",
+  ]);
+  const [changeStatus, setChangeStatus] = useState("");
+  const [allOrders, setAllOrders] = useState([]);
   const [auth] = useAuth();
-  const getAllOrders = async () => {
+  const fetchAllOrders = async () => {
     try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/auth/orders`,
+      const res = await axios(
+        `${process.env.REACT_APP_API}/api/v1/auth/all-orders`,
+        {
+          headers: {
+            Authorization: auth?.authtoken,
+          },
+        }
+      );
+      if (res?.data?.success) {
+        setAllOrders(res?.data?.orders);
+      }
+    } catch (error) {
+      toast.error("Error while fetching all orders");
+    }
+  };
+  useEffect(() => {
+    if (auth?.authtoken) fetchAllOrders();
+  }, [auth?.authtoken]);
+
+  const handleStatus = async (orderId, value) => {
+    try {
+      const res = await axios.put(
+        `${process.env.REACT_APP_API}/api/v1/auth/order-status/${orderId}`,
+        { status: value },
         {
           headers: {
             Authorization: auth?.authtoken,
@@ -20,26 +53,20 @@ const Order = () => {
         }
       );
       if (res) {
-        setOrders(res?.data);
+        fetchAllOrders();
       }
-    } catch (error) {
-      toast.error("Error while fetching orders");
-    }
+    } catch (error) {}
   };
-  useEffect(() => {
-    if (auth?.authtoken) getAllOrders();
-  }, [auth?.authtoken]);
-
   return (
-    <Layout title={"Dashboard - Orders"}>
+    <Layout>
       <div className="container-fluid m-3 p-3">
         <div className="row">
-          <div className="col-md-2">
-            <Usermenu />
+          <div className="col-md-3">
+            <Adminmenu />
           </div>
           <div className="col-md-9">
-            <h1 className="text-center">All orders</h1>
-            {orders?.map((item, index) => {
+            <h1 className="text-center">All Orders</h1>
+            {allOrders?.map((item, index) => {
               return (
                 <div className="border shadow">
                   <table className="table">
@@ -57,7 +84,19 @@ const Order = () => {
                     <tbody>
                       <tr>
                         <td>{index + 1}</td>
-                        <td>{item?.status}</td>
+                        <td>
+                          <Select
+                            bordered={false}
+                            onChange={(value) => handleStatus(item._id, value)}
+                            defaultValue={item?.status}
+                          >
+                            {status?.map((s, index) => (
+                              <Option key={index} value={s}>
+                                {s}
+                              </Option>
+                            ))}
+                          </Select>
+                        </td>
                         <td>{item?.buyer?.name}</td>
                         <td>{moment(item?.createdAt).fromNow()}</td>
                         <td>
@@ -103,4 +142,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default Orders;
