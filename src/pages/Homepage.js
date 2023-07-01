@@ -125,7 +125,11 @@ const Homepage = () => {
           <h1 className="text-center">All Products</h1>
           <div className="d-flex flex-wrap">
             {products?.map((item) => (
-              <div className="card m-2" style={{ width: "20rem" }}>
+              <div
+                className="card m-2"
+                style={{ width: "20rem" }}
+                key={item._id}
+              >
                 <img
                   src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${item._id}`}
                   className="card-img-top"
@@ -150,12 +154,12 @@ const Homepage = () => {
                   <button
                     className="btn btn-secondary m-2"
                     onClick={() => {
-                      setCart([...cart, item]);
-                      toast.success("Product added to cart successfully");
                       localStorage.setItem(
                         "cart",
                         JSON.stringify([...cart, item])
                       );
+                      setCart([...cart, item]);
+                      toast.success("Product added to cart successfully");
                     }}
                   >
                     Add to cart

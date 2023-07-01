@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/layout/Layout";
 import { useAuth } from "../context/authContext";
 import { useCart } from "../context/cartContext";
 import { useNavigate } from "react-router-dom";
+import DropIn from "braintree-web-drop-in-react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const Cart = () => {
-  const [auth, setAuth] = useAuth();
+  const [auth] = useAuth();
   const [cart, setCart] = useCart();
+  const [clientToken, setClientToken] = useState("");
   const navigate = useNavigate();
+  const [instance, setinstance] = useState("");
+  const [loading, setLoading] = useState(false);
 
   // handler for removing item
   const removeCartItem = (id) => {
@@ -21,8 +27,26 @@ const Cart = () => {
     }
   };
 
+  // get payment getway token
+  const getClientToken = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_API}/api/v1/product/braintree/token`
+      );
+      if (res) {
+        setClientToken(res?.data?.clientToken);
+        console.log("client token is  ", res?.data?.clientToken);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    if (auth?.authtoken) getClientToken();
+  }, [auth?.authtoken]);
+
   // handler for total price
-  const TotalCost = () => {
+  const subtotal = () => {
     try {
       let total = 0;
       for (let i = 0; i < cart?.length; i++) {
@@ -36,13 +60,57 @@ const Cart = () => {
       console.log(error);
     }
   };
+  const totalCost = () => {
+    try {
+      const charge = 100;
+      let total = 0;
+      for (let i = 0; i < cart?.length; i++) {
+        total += cart[i].price;
+      }
+
+      let totalCost = total + charge;
+      return totalCost.toLocaleString("en-IN", {
+        style: "currency",
+        currency: "INR",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // payment handler
+  const handlePayment = async () => {
+    try {
+      setLoading(true);
+      const { nonce } = await instance.requestPaymentMethod();
+      const res = await axios.post(
+        `${process.env.REACT_APP_API}/api/v1/product/braintree/payments`,
+        { cart, nonce },
+        {
+          headers: {
+            Authorization: auth?.authtoken,
+          },
+        }
+      );
+      if (res?.data?.success) {
+        setLoading(false);
+        localStorage.removeItem("cart");
+        setCart([]);
+        navigate("/dashboard/user/orders");
+        toast.success("Payment Successful ");
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      toast.error("Error while making payment");
+    }
+  };
   return (
-    <Layout>
+    <Layout title={"Your Cart - Chocolate Crisp"}>
       <div className="container">
         <div className="row">
           <div className="col-md-12">
             <h3 className="text-center bg-light p-2 mb-2">
-              Hello {auth && auth?.authtoken && auth?.user?.name}
+              {auth?.authtoken ? `Hello ${auth?.user?.name}` : "Hello Guest"}
             </h3>
             <h4 className="text-center bg-light p-2 mb-2">
               {auth?.authtoken
@@ -54,9 +122,12 @@ const Cart = () => {
           </div>
         </div>
         <div className="row">
-          <div className="col-md-7">
+          <div className="col-md-8">
             {cart?.map((item) => (
-              <div className="row card flex-row m-2 d-flex flex-wrap p-2">
+              <div
+                className="row card flex-row m-2 d-flex flex-wrap p-2"
+                key={item._id}
+              >
                 <div className="col-md-5">
                   <img
                     src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${item._id}`}
@@ -86,11 +157,14 @@ const Cart = () => {
               </div>
             ))}
           </div>
-          <div className="col-md-5 text-center">
+          <div className="col-md-4 text-center">
             <h2>Cart Summary</h2>
             <p>Total | Checkout | Payments</p>
             <hr />
-            <h5>Total : {TotalCost()}</h5>
+            <h6>subtotal : {subtotal()}</h6>
+            {cart?.length >= 1 && <h6>Delivery charge : 100</h6>}
+            <hr />
+            {cart?.length >= 1 && <h5>Total cost : {totalCost()}</h5>}
             {auth?.user?.address ? (
               <>
                 <div className="mb-3">
@@ -127,6 +201,38 @@ const Cart = () => {
                 </div>
               </>
             )}
+
+            <div className="mt-2">
+              {!clientToken || !auth?.authtoken || cart?.length < 1 ? (
+                ""
+              ) : (
+                <>
+                  <DropIn
+                    options={{
+                      authorization: clientToken,
+                      paypal: {
+                        flow: "vault",
+                      },
+                    }}
+                    onInstance={(instance) => {
+                      setinstance(instance);
+                    }}
+                  />
+                  <button
+                    className="btn btn-primary mb-2"
+                    disabled={
+                      loading ||
+                      !instance ||
+                      !auth?.user?.address ||
+                      !auth?.authtoken
+                    }
+                    onClick={handlePayment}
+                  >
+                    {loading ? "Processing..." : "Make Payment"}
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
