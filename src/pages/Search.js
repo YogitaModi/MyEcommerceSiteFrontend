@@ -6,7 +6,10 @@ const Search = () => {
   const [search, setSearch] = useSearch();
   return (
     <Layout title="Search - Results Chocolate Crisp">
-      <div className="container">
+      <div
+        className="container"
+        style={{ backgroundColor: "#ddd0c7", height: "100vh" }}
+      >
         <div className="text-center">
           <h1>Search Results</h1>
           <h6>

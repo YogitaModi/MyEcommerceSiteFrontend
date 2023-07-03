@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../components/layout/Layout";
 import axios from "axios";
 import { Checkbox, Radio } from "antd";
@@ -83,10 +83,34 @@ const Homepage = () => {
 
   return (
     <Layout title={"Best offers - Chocolate Crisp"}>
-      <div className="row">
-        <div className="col-md-2">
+      <div className="brand-name ">
+        <div className="row home-page text-center">
+          <div className="col-md-6 shadow ">
+            <h1 className="chocolate">CHOCOLATE CRISP</h1>
+            <img
+              className="shadow"
+              src="\images\banner_img.jpg"
+              style={{
+                width: "100%",
+                height: "100%",
+                marginLeft: "25vw",
+              }}
+              alt="Chocolate Crisp"
+            />
+          </div>
+          {/* <div className="col-md-6  brand-name  ">
+          <h1 className="chocolate">CHOCOLATE CRISP</h1>
+        </div> */}
+        </div>
+      </div>
+
+      <div className="row" style={{ backgroundColor: "whitesmoke" }}>
+        <div
+          className="col-md-3 mt-3 "
+          style={{ textTransform: "uppercase", alignContent: "center" }}
+        >
           <h6 className="text-center m-2">Filter by category</h6>
-          <div className="d-flex flex-column container-fluid m-3 p-3">
+          <div className="d-flex flex-column container-fluid m-3 p-3 ">
             {category?.map((item) => (
               <Checkbox
                 key={item._id}
@@ -95,16 +119,21 @@ const Homepage = () => {
                   handleFilterByCategory(e.target.checked, item._id);
                 }}
               >
-                {item.name}
+                <p className="filter">{item.name}</p>
               </Checkbox>
             ))}
           </div>
-          <h6 className="text-center">Filter by Price</h6>
-          <div className="d-flex flex-column container-fluid m-3 p-3">
+          <hr />
+          <h6 className="text-center" style={{ textTransform: "uppercase" }}>
+            Filter by Price
+          </h6>
+          <div className="d-flex flex-column container-fluid m-3 p-3 ">
             <Radio.Group onChange={(e) => setRadio(e.target.value)}>
               {Price?.map((p) => (
                 <div key={p._id}>
-                  <Radio value={p.array}>{p.name}</Radio>
+                  <Radio value={p.array}>
+                    <p className="filter">{p.name}</p>
+                  </Radio>
                 </div>
               ))}
             </Radio.Group>
@@ -121,18 +150,22 @@ const Homepage = () => {
             </button>
           </div>
         </div>
-        <div className="col-md-10">
-          <h1 className="text-center">All Products</h1>
+        <div className="col-md-9">
+          <h2 className="text-center mt-2">ALL PRODUCTS</h2>
           <div className="d-flex flex-wrap">
             {products?.map((item) => (
               <div
                 className="card m-2"
-                style={{ width: "20rem" }}
+                style={{
+                  width: "18rem",
+                  backgroundColor: "rgba(128, 128, 128, 0.097)",
+                }}
                 key={item._id}
               >
                 <img
                   src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${item._id}`}
                   className="card-img-top"
+                  style={{ padding: "4px" }}
                   alt={item.name}
                 />
                 <div className="card-body">

@@ -14,11 +14,15 @@ font-family: 'Poppins', sans-serif; */
 .navbar{
   font-family:'Poppins', sans-serif; 
   font-size: 17px;
+  color:#FFFFFF !important;
   line-height: 26px;
   text-transform: uppercase;
   box-shadow: 0 8px 6px -6px gray;
-  /* background: linear-gradient(to bottom, gray,whitesmoke); */
+  /* background: linear-gradient(to top, #D49E8D,#683B2B); */
+  /* background-color: white !important ; */
+  background-image: conic-gradient(#563727, #372C2E, #FFFFFF, #DE9E48, #7A431D);
   border-bottom: 0px solid gray !important;
+  
   /* --webkit-box-shadow: */
 }
 .active{
@@ -29,7 +33,7 @@ font-family: 'Poppins', sans-serif; */
   font-weight: 700;
   letter-spacing: 3px;
   font-size: 25px;
-  color:#434343;
+  color:black;
 }
 
 /* Footer css */
@@ -71,13 +75,13 @@ color: whitesmoke;
 
 /* contact page css */
 
-.contact{
-  display: grid;
-  column-gap: 10px;
-  /* row-gap: 50px; */
-  grid-template-columns: auto auto auto;
-  background-color: whitesmoke;
-  padding: 10px;
+.contactus {
+  margin: 0;
+  padding: 0;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* register page css */
@@ -88,8 +92,8 @@ color: whitesmoke;
   align-items: center;
   flex-flow: column;
   min-height:90vh;
-  background-color: #b5fffc;
-  background-image:-webkit-linear-gradient(0deg, #ffdee9 0% ,#b5fffc 100%);
+  background-color: #6F4E37;
+  /* background-image:-webkit-linear-gradient(0deg, #E68244 0% ,#563727 100%); */
   /* background: -webkit-linear-gradient(to right #434343 #000000); */
 }
 .form-container form{
@@ -121,4 +125,55 @@ text-transform: uppercase;
   border:1px solid black;
   background: #000000;
   background: linear-gradient(to right #434343 #000000);
+}
+
+/* home page card */
+.card-desgin{
+  background: conic-gradient(#563727, #372C2E, #FFFFFF, #DE9E48, #7A431D) !important;
+}
+
+
+.home-page ,button {
+  border-radius: 0;
+  width: 100%;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  position: relative;
+}
+
+.card-desgin:hover{
+  opacity: 0.8;
+}
+
+/* home page filter */
+.filter{
+  font-family:'Poppins', sans-serif !important ;
+}
+
+.brand-name{
+  
+  background-color: #563727;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.chocolate{
+  font-family: 'Poppins', sans-serif;
+  font-weight: bolder;
+  position: absolute;
+  letter-spacing: 15px;
+  line-height: 32vh;
+color:#6F4E37;
+
+background: linear-gradient(to right, #6F4E37, 
+#7B3F00, #3b1f0193, #ddd0c7); 
+ -webkit-text-fill-color: transparent; 
+background-clip: text; 
+  font-size: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

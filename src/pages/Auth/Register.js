@@ -46,7 +46,10 @@ const Register = () => {
   };
   return (
     <Layout title={"Register now- Chocolate Crisp"}>
-      <div className="form-container title">
+      <div
+        className="form-container title"
+        style={{ backgroundColor: "#FEFCED" }}
+      >
         <h1 className="title">Register Page</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">

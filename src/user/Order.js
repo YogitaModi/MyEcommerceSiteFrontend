@@ -32,7 +32,10 @@ const Order = () => {
 
   return (
     <Layout title={"Dashboard - Orders"}>
-      <div className="container-fluid m-3 p-3">
+      <div
+        className="container-fluid m-3  p-3"
+        style={{ backgroundColor: "#ddd0c7" }}
+      >
         <div className="row">
           <div className="col-md-2">
             <Usermenu />
@@ -71,13 +74,13 @@ const Order = () => {
                   <div className="container">
                     {item?.products?.map((item) => (
                       <div
-                        className="row card flex-row m-2 d-flex flex-wrap p-2"
+                        className="row card flex-row mb-2 d-flex flex-wrap p-2"
                         key={item._id}
                       >
                         <div className="col-md-3">
                           <img
                             src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${item._id}`}
-                            className="card-img-top m-2"
+                            className="card-img-top "
                             alt={item.name}
                             height={"160px"}
                           />

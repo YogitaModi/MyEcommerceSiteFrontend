@@ -30,11 +30,13 @@ const Searchinput = () => {
             border: "none",
             padding: "8px",
             fontSize: "15px",
-            border: "1px solid grey",
+            // border: "1px solid grey",
             float: "left",
             width: "80%",
-            background: "#f1f1f1",
-            borderRadius: "30px",
+            background: "whitesmoke",
+            width: "20vw",
+
+            // borderRadius: "30px",
           }}
           className="form-control me-2"
           type="search"
@@ -48,12 +50,21 @@ const Searchinput = () => {
         {/* <button className="btn btn-outline-success" type="submit">
           Search
         </button> */}
-        <button type="submit" style={{ border: "none" }}>
+        <button
+          type="submit"
+          style={{
+            border: "none",
+            width: "35px",
+            backgroundColor: "#372C2E",
+            color: "white",
+            borderRadius: "50%",
+          }}
+        >
           <i
             class="fa fa-search"
             style={{
-              color: "black",
-              backgroundColor: "whitesmoke",
+              color: "white",
+              backgroundColor: "#372C2E",
               padding: "5px",
             }}
           ></i>

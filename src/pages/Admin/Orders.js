@@ -64,8 +64,8 @@ const Orders = () => {
           <div className="col-md-3">
             <Adminmenu />
           </div>
-          <div className="col-md-9">
-            <h1 className="text-center">All Orders</h1>
+          <div className="col-md-8">
+            <h1 className="text-center">ALL ORDERS</h1>
             {allOrders?.map((item, index) => {
               return (
                 <div className="border shadow">

@@ -23,7 +23,10 @@ const CategoryProduct = () => {
 
   return (
     <Layout>
-      <div className="container mt-3">
+      <div
+        className="container mt-3 "
+        style={{ backgroundColor: "#ddd0c7", height: "100vh" }}
+      >
         <h4 className="text-center">Category {category?.name}</h4>
         <h6 className="text-center">
           {products?.length < 1

@@ -1,13 +1,12 @@
 import React from "react";
-import { MdAttachEmail } from "react-icons/md";
-import { BsTelephoneFill } from "react-icons/bs";
-import { BiSupport } from "react-icons/bi";
+
+import { BiSupport, BiPhoneCall, BiMailSend } from "react-icons/bi";
 import Layout from "../components/layout/Layout";
 
 const Contact = () => {
   return (
     <Layout title={"Contact us - Chocolate Crisp"}>
-      <div style={{ minHeight: "75vh" }} className="row contact">
+      <div style={{ minHeight: "75vh" }} className="row contactus">
         <div className="col-md-6">
           <img
             src="\images\contactus.jpg"
@@ -21,18 +20,19 @@ const Contact = () => {
           />
         </div>
         <div className="col-md-4">
-          <h1 className="bg-dark text-light text-center p-2 ">CONTACT US</h1>
-          <p className="text justify mt-2">
-            <BiSupport />
-            For any query feel free to contact available 24x7
+          <h1 className="bg-dark p-2 text-white text-center">CONTACT US</h1>
+          <p className="text-justify mt-2">
+            any query and info about prodduct feel free to call anytime we 24X7
+            vaialible
           </p>
           <p className="mt-3">
-            <MdAttachEmail />
-            www.help@chocolatecrisp.com
+            <BiMailSend /> : www.help@ecommerceapp.com
           </p>
-          <p>
-            <BsTelephoneFill />
-            +91 5455454545
+          <p className="mt-3">
+            <BiPhoneCall /> : 012-3456789
+          </p>
+          <p className="mt-3">
+            <BiSupport /> : 1800-0000-0000 (toll free)
           </p>
         </div>
       </div>

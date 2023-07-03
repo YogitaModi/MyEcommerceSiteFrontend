@@ -4,7 +4,18 @@ import Layout from "../components/layout/Layout";
 const Policy = () => {
   return (
     <Layout title={"Private policy- Chocolate Crisp"}>
-      <h1>Page Policy</h1>
+      <div className="row contactus ">
+        <div className="col-md-6 "></div>
+        <div className="col-md-4">
+          <p>add privacy policy</p>
+          <p>add privacy policy</p>
+          <p>add privacy policy</p>
+          <p>add privacy policy</p>
+          <p>add privacy policy</p>
+          <p>add privacy policy</p>
+          <p>add privacy policy</p>
+        </div>
+      </div>
     </Layout>
   );
 };

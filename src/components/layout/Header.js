@@ -23,7 +23,7 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
@@ -43,13 +43,13 @@ const Header = () => {
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <Searchinput />
               <li className="nav-item">
-                <NavLink className="nav-link " to="/">
+                <NavLink className="nav-link text-light " to="/">
                   Home
                 </NavLink>
               </li>
-              <li className="nav-item dropdown">
+              <li className="nav-item dropdown ">
                 <NavLink
-                  className="nav-link dropdown-toggle"
+                  className="nav-link dropdown-toggle text-light"
                   to="/categories"
                   data-bs-toggle="dropdown"
                 >
@@ -78,22 +78,22 @@ const Header = () => {
               {!auth.user ? (
                 <>
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/register">
+                    <NavLink className="nav-link text-light" to="/register">
                       Register
                     </NavLink>
                   </li>
 
                   <li className="nav-item">
-                    <NavLink className="nav-link" to="/userlogin">
+                    <NavLink className="nav-link text-light" to="/userlogin">
                       Login
                     </NavLink>
                   </li>
                 </>
               ) : (
                 <>
-                  <li className="nav-item dropdown">
+                  <li className="nav-item dropdown text-light">
                     <NavLink
-                      className="nav-link dropdown-toggle"
+                      className="nav-link dropdown-toggle text-light"
                       to="#"
                       role="button"
                       data-bs-toggle="dropdown"
@@ -126,7 +126,7 @@ const Header = () => {
                 </>
               )}
               <li className="nav-item">
-                <NavLink className="nav-link" to="/cart">
+                <NavLink className="nav-link text-light" to="/cart">
                   <BsShop />
                   <span className="position-relative translate-middle badge rounded-pill bg-danger">
                     {cart?.length}

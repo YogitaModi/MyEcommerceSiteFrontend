@@ -106,23 +106,34 @@ const Cart = () => {
   };
   return (
     <Layout title={"Your Cart - Chocolate Crisp"}>
-      <div className="container">
+      <div className="container" style={{ backgroundColor: "#FEFCED" }}>
         <div className="row">
           <div className="col-md-12">
-            <h3 className="text-center bg-light p-2 mb-2">
+            <h5 className="text-center bg-light p-2 mb-2">
               {auth?.authtoken ? `Hello ${auth?.user?.name}` : "Hello Guest"}
-            </h3>
-            <h4 className="text-center bg-light p-2 mb-2">
+            </h5>
+            <h5 className="text-center bg-light p-2 mb-2">
               {auth?.authtoken
                 ? cart?.length > 1
                   ? `You have ${cart.length} items in your cart`
                   : `You have ${cart.length} item in your cart`
                 : `You have ${cart.length} items in your cart ...Please Login to checkout`}
-            </h4>
+            </h5>
           </div>
         </div>
         <div className="row">
           <div className="col-md-8">
+            {cart?.length < 1 && (
+              <img
+                src="/images/cart.jpg"
+                style={{
+                  width: "40vw",
+                  height: "80vh",
+                  backgroundColor: "white",
+                }}
+                alt="Your cart is empty"
+              />
+            )}
             {cart?.map((item) => (
               <div
                 className="row card flex-row m-2 d-flex flex-wrap p-2"
@@ -158,7 +169,7 @@ const Cart = () => {
             ))}
           </div>
           <div className="col-md-4 text-center">
-            <h2>Cart Summary</h2>
+            <h3>CART SUMMARY</h3>
             <p>Total | Checkout | Payments</p>
             <hr />
             <h6>subtotal : {subtotal()}</h6>

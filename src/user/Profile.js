@@ -58,14 +58,17 @@ const Profile = () => {
   };
   return (
     <Layout title={"Dashboard - Your Profile"}>
-      <div className="container-fluid m-3 p-3">
+      <div
+        className="container-fluid m-3 p-3"
+        style={{ backgroundColor: "#ddd0c7" }}
+      >
         <div className="row">
           <div className="col-md-3">
             <Usermenu />
           </div>
           <div className="col-md-9">
             <div className="form-container title">
-              <h1 className="title">Update Your Profile</h1>
+              <h1 className="title text-light">UPDATE YOUR PROFILE</h1>
               <form onSubmit={handleUpdate}>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label">
