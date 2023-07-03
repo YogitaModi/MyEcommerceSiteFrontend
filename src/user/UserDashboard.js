@@ -8,7 +8,7 @@ const UserDashboard = () => {
     <Layout title={"Dashboard - Chocolate Crisp"}>
       <div
         className="container-fluid  p-3"
-        style={{ backgroundColor: "#ddd0c7", height: "100vh" }}
+        style={{ backgroundColor: "#FEFCED", height: "100vh" }}
       >
         <div className="row">
           <div className="col-md-3">

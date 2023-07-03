@@ -17,7 +17,7 @@ const Orders = () => {
     "Deliverd",
     "Cancelled",
   ]);
-  const [changeStatus, setChangeStatus] = useState("");
+
   const [allOrders, setAllOrders] = useState([]);
   const [auth] = useAuth();
   const fetchAllOrders = async () => {
@@ -59,7 +59,10 @@ const Orders = () => {
   };
   return (
     <Layout>
-      <div className="container-fluid m-3 p-3">
+      <div
+        className="container-fluid m-3 p-3"
+        style={{ backgroundColor: "#FEFCED", height: "100vh" }}
+      >
         <div className="row">
           <div className="col-md-3">
             <Adminmenu />

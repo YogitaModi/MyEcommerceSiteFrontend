@@ -115,7 +115,10 @@ const CreateCategory = () => {
 
   return (
     <Layout title={"Dashboard - Create Category - Chocolate Crisp"}>
-      <div className="container-fluid m-3 p-3">
+      <div
+        className="container-fluid m-3 p-3"
+        style={{ backgroundColor: "#FEFCED", height: "100vh" }}
+      >
         <div className="row">
           <div className="col-md-3">
             <Adminmenu />

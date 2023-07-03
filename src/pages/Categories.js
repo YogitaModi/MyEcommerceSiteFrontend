@@ -8,7 +8,7 @@ const Categories = () => {
   const categories = useCategory();
   return (
     <Layout title={"Categories - Chocolate Crisp"}>
-      <div style={{ backgroundColor: "#ddd0c7", height: "100vh" }}>
+      <div style={{ backgroundColor: "#FEFCED" }}>
         <div className="container" style={{ padding: "50px" }}>
           <div className="d-flex flex-row flex-wrap container-fluid m-2 p-3">
             {categories?.map((item) => (

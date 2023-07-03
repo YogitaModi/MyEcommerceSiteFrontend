@@ -27,7 +27,6 @@ const CreateProduct = () => {
         `${process.env.REACT_APP_API}/api/v1/category/get-categories`
       );
       if (res?.data?.success) {
-        console.log("category are ", res.data);
         setCategories(res.data.category);
       }
     } catch (error) {
@@ -71,7 +70,10 @@ const CreateProduct = () => {
 
   return (
     <Layout title={"Dashboard - Create Product - Chocolate Crisp"}>
-      <div className="container-fluid m-3 p-3">
+      <div
+        className="container-fluid m-3 p-3"
+        style={{ backgroundColor: "#FEFCED" }}
+      >
         <div className="row">
           <div className="col-md-3">
             <Adminmenu />
@@ -110,7 +112,7 @@ const CreateProduct = () => {
                   <div className="text-center">
                     <img
                       src={URL.createObjectURL(image)}
-                      alt="Product Image"
+                      alt="Product-image"
                       height={"200px"}
                       className="img img-responsive"
                     />

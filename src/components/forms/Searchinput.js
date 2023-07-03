@@ -30,13 +30,11 @@ const Searchinput = () => {
             border: "none",
             padding: "8px",
             fontSize: "15px",
-            // border: "1px solid grey",
+
             float: "left",
-            width: "80%",
+
             background: "whitesmoke",
             width: "20vw",
-
-            // borderRadius: "30px",
           }}
           className="form-control me-2"
           type="search"

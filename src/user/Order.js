@@ -34,7 +34,7 @@ const Order = () => {
     <Layout title={"Dashboard - Orders"}>
       <div
         className="container-fluid m-3  p-3"
-        style={{ backgroundColor: "#ddd0c7" }}
+        style={{ backgroundColor: "#FEFCED", height: "100vh" }}
       >
         <div className="row">
           <div className="col-md-2">

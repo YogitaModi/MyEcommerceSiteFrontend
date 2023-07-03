@@ -30,7 +30,10 @@ const Products = () => {
 
   return (
     <Layout title={"Product Page - Chocolate Crisp"}>
-      <div className="container-fluid m-3 p-3">
+      <div
+        className="container-fluid m-3 p-3"
+        style={{ backgroundColor: "#FEFCED" }}
+      >
         <div className="row">
           <div className="col-md-3">
             <Adminmenu />

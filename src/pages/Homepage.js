@@ -52,8 +52,8 @@ const Homepage = () => {
     }
   };
   useEffect(() => {
-    getAllProducts();
-  }, []);
+    if (checked.length < 1 || radio.length < 1) getAllProducts();
+  }, [checked.length, radio.length]);
 
   // filter by category
   const handleFilterByCategory = (value, id) => {
@@ -67,6 +67,12 @@ const Homepage = () => {
     setChecked(all);
   };
 
+  useEffect(() => {
+    if (checked.length || radio.length) {
+      FilterProduct();
+    }
+  }, [checked, radio]);
+
   // filter products
   const FilterProduct = async () => {
     const res = await axios.post(
@@ -77,9 +83,6 @@ const Homepage = () => {
       setProducts(res.data.products);
     }
   };
-  useEffect(() => {
-    if (checked.length || radio.length) FilterProduct();
-  }, [checked, radio]);
 
   return (
     <Layout title={"Best offers - Chocolate Crisp"}>
@@ -98,13 +101,10 @@ const Homepage = () => {
               alt="Chocolate Crisp"
             />
           </div>
-          {/* <div className="col-md-6  brand-name  ">
-          <h1 className="chocolate">CHOCOLATE CRISP</h1>
-        </div> */}
         </div>
       </div>
 
-      <div className="row" style={{ backgroundColor: "whitesmoke" }}>
+      <div className="row" style={{ backgroundColor: "#FEFCED" }}>
         <div
           className="col-md-3 mt-3 "
           style={{ textTransform: "uppercase", alignContent: "center" }}

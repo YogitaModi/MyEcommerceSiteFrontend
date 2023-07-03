@@ -50,7 +50,8 @@ const Cart = () => {
     try {
       let total = 0;
       for (let i = 0; i < cart?.length; i++) {
-        total += cart[i].price;
+        let x = cart[i].price;
+        total += x;
       }
       return total.toLocaleString("en-IN", {
         style: "currency",
@@ -109,10 +110,10 @@ const Cart = () => {
       <div className="container" style={{ backgroundColor: "#FEFCED" }}>
         <div className="row">
           <div className="col-md-12">
-            <h5 className="text-center bg-light p-2 mb-2">
+            <h5 className="text-center  p-2 mb-2">
               {auth?.authtoken ? `Hello ${auth?.user?.name}` : "Hello Guest"}
             </h5>
-            <h5 className="text-center bg-light p-2 mb-2">
+            <h5 className="text-center p-2 mb-2">
               {auth?.authtoken
                 ? cart?.length > 1
                   ? `You have ${cart.length} items in your cart`
@@ -155,15 +156,18 @@ const Cart = () => {
                     <p className="card-text">INR : {item.price}</p>
                   </div>
                 </div>
-                <div className="col-md-2 text-center">
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => {
-                      removeCartItem(item._id);
-                    }}
-                  >
-                    Remove
-                  </button>
+                <div className="row container">
+                  <div className="col-md-8"> </div>
+                  <div className="col-md-2 d-flex flex-row m-2">
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => {
+                        removeCartItem(item._id);
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

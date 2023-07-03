@@ -22,10 +22,10 @@ const CategoryProduct = () => {
   }, [params?.slug]);
 
   return (
-    <Layout>
+    <Layout title={"Create Product - CHOCOLATE CRISP"}>
       <div
         className="container mt-3 "
-        style={{ backgroundColor: "#ddd0c7", height: "100vh" }}
+        style={{ backgroundColor: "#FEFCED", height: "100vh" }}
       >
         <h4 className="text-center">Category {category?.name}</h4>
         <h6 className="text-center">

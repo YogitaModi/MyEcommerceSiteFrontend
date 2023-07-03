@@ -32,7 +32,7 @@ const Login = () => {
         setAuth({
           ...auth,
           user: res.data.user,
-          authtoken: res.data.authtoken,
+          authtoken: res?.data?.authtoken,
         });
         console.log(res);
         navigate(location.state || "/");
