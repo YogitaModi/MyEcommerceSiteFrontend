@@ -46,7 +46,7 @@ const CategoryProduct = () => {
                 <div className="card-body">
                   <h5 className="card-title">{item.name}</h5>
                   <p className="card-text">
-                    {item.description.substring(0, 30)}...
+                    {item.description.substring(0, 60)}...
                   </p>
 
                   <p className="card-text">INR : {item.price}</p>
