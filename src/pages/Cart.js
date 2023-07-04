@@ -39,7 +39,7 @@ const Cart = () => {
         setClientToken(res?.data?.clientToken);
       }
     } catch (error) {
-      console.log(error);
+      toast.error("error in client token");
     }
   };
   useEffect(() => {
@@ -59,7 +59,7 @@ const Cart = () => {
         currency: "INR",
       });
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
   const totalCost = () => {
@@ -76,7 +76,7 @@ const Cart = () => {
         currency: "INR",
       });
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
   // payment handler

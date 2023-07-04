@@ -34,7 +34,7 @@ const Login = () => {
           user: res.data.user,
           authtoken: res?.data?.authtoken,
         });
-        console.log(res);
+
         navigate(location.state || "/");
         toast.success(res.data.message);
 
@@ -43,7 +43,6 @@ const Login = () => {
         toast.error(res.data.message);
       }
     } catch (error) {
-      console.log("error is ", error);
       toast.error("Something went wrong");
     }
   };

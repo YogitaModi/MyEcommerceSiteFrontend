@@ -31,7 +31,6 @@ const Updateproduct = () => {
         setCategories(res.data.category);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Something Went Wrong");
     }
   };
