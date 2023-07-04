@@ -6,12 +6,13 @@ import toast from "react-hot-toast";
 import { Select } from "antd";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
+import useCategory from "../../hooks/useCategory";
 
 const CreateProduct = () => {
   const [auth] = useAuth();
   const navigate = useNavigate();
   const { Option } = Select;
-  const [categories, setCategories] = useState([]);
+  const categories = useCategory();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -19,25 +20,6 @@ const CreateProduct = () => {
   const [quantity, setQuantity] = useState("");
   const [image, setImage] = useState("");
   const [shipping, setShipping] = useState("");
-
-  // fetching all category
-  const getAllCategories = async () => {
-    try {
-      const res = await axios.get(
-        `${process.env.REACT_APP_API}/api/v1/category/get-categories`
-      );
-      if (res?.data?.success) {
-        setCategories(res.data.category);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Something Went Wrong");
-    }
-  };
-  useEffect(() => {
-    getAllCategories();
-    // eslint-disable-next-line
-  }, []);
 
   // creating new product
   const handleCreateProduct = async (e) => {

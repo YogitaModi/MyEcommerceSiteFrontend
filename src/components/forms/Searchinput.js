@@ -59,7 +59,7 @@ const Searchinput = () => {
           }}
         >
           <i
-            class="fa fa-search"
+            className="fa fa-search"
             style={{
               color: "white",
               backgroundColor: "#372C2E",

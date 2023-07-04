@@ -5,7 +5,8 @@ import { useCart } from "../context/cartContext";
 import { useNavigate } from "react-router-dom";
 import DropIn from "braintree-web-drop-in-react";
 import axios from "axios";
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { v4 as uuidv4 } from "uuid";
 
 const Cart = () => {
   const [auth] = useAuth();
@@ -22,8 +23,9 @@ const Cart = () => {
 
       setCart(newCart);
       localStorage.setItem("cart", JSON.stringify(newCart));
+      toast.success("item removed successfully");
     } catch (error) {
-      console.log(error);
+      toast.error("error while removing item from cart");
     }
   };
 
@@ -35,7 +37,6 @@ const Cart = () => {
       );
       if (res) {
         setClientToken(res?.data?.clientToken);
-        console.log("client token is  ", res?.data?.clientToken);
       }
     } catch (error) {
       console.log(error);
@@ -138,7 +139,7 @@ const Cart = () => {
             {cart?.map((item) => (
               <div
                 className="row card flex-row m-2 d-flex flex-wrap p-2"
-                key={item._id}
+                key={uuidv4()}
               >
                 <div className="col-md-5">
                   <img
@@ -183,8 +184,8 @@ const Cart = () => {
             {auth?.user?.address ? (
               <>
                 <div className="mb-3">
-                  <h4>Current Address</h4>
-                  <h5>{auth?.user?.address}</h5>
+                  <h5>Shipping Address</h5>
+                  <h6>{auth?.user?.address}</h6>
                   <button
                     className="btn btn-outline-warning"
                     onClick={() => navigate("/dashboard/user/profile")}

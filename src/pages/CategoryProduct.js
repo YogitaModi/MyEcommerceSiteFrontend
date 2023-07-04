@@ -22,11 +22,8 @@ const CategoryProduct = () => {
   }, [params?.slug]);
 
   return (
-    <Layout title={"Create Product - CHOCOLATE CRISP"}>
-      <div
-        className="container mt-3 "
-        style={{ backgroundColor: "#FEFCED", height: "100vh" }}
-      >
+    <Layout title={"Product found - CHOCOLATE CRISP"}>
+      <div className="container mt-3 " style={{ backgroundColor: "#FEFCED" }}>
         <h4 className="text-center">Category {category?.name}</h4>
         <h6 className="text-center">
           {products?.length < 1
@@ -36,7 +33,11 @@ const CategoryProduct = () => {
         <div className="row">
           <div className="d-flex flex-wrap">
             {products?.map((item) => (
-              <div className="card m-2" style={{ width: "20rem" }}>
+              <div
+                className="card m-2"
+                style={{ width: "20rem" }}
+                key={item?._id}
+              >
                 <img
                   src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${item._id}`}
                   className="card-img-top"

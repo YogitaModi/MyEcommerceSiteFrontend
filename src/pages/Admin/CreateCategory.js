@@ -37,7 +37,6 @@ const CreateCategory = () => {
         toast.error(res.data.message);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Something went wrong while creating category");
     }
   };
@@ -49,16 +48,15 @@ const CreateCategory = () => {
         `${process.env.REACT_APP_API}/api/v1/category/get-categories`
       );
       if (res?.data?.success) {
-        console.log("category are ", res.data);
         setCategories(res.data.category);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Something Went Wrong");
     }
   };
   useEffect(() => {
     getAllCategories();
+    // eslint-disable-next-line
   }, []);
 
   // updating the category
@@ -83,7 +81,6 @@ const CreateCategory = () => {
         getAllCategories();
       }
     } catch (error) {
-      console.log(error);
       toast.error("Error while updating the category");
     }
   };
@@ -108,7 +105,6 @@ const CreateCategory = () => {
         toast.error(res.data.message);
       }
     } catch (error) {
-      console.log(error);
       toast.error("Error while deleting the category");
     }
   };

@@ -34,7 +34,7 @@ const Order = () => {
     <Layout title={"Dashboard - Orders"}>
       <div
         className="container-fluid m-3  p-3"
-        style={{ backgroundColor: "#FEFCED", height: "100vh" }}
+        style={{ backgroundColor: "#FEFCED" }}
       >
         <div className="row">
           <div className="col-md-2">
@@ -44,7 +44,7 @@ const Order = () => {
             <h1 className="text-center">All orders</h1>
             {orders?.map((item, index) => {
               return (
-                <div className="border shadow">
+                <div className="border shadow" key={item._id}>
                   <table className="table">
                     <thead>
                       <tr>

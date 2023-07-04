@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 const useCategory = () => {
   const [categories, setCategories] = useState([]);
@@ -13,7 +14,7 @@ const useCategory = () => {
         setCategories(res?.data?.category);
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Error while fetching all categories");
     }
   };
   useEffect(() => {

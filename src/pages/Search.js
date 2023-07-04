@@ -11,10 +11,7 @@ const Search = () => {
   const [cart, setCart] = useCart();
   return (
     <Layout title="Search - Results Chocolate Crisp">
-      <div
-        className="container"
-        style={{ backgroundColor: "#FEFCED", height: "100vh" }}
-      >
+      <div className="container" style={{ backgroundColor: "#FEFCED" }}>
         <div className="text-center">
           <h1>Search Results</h1>
           <h6>
@@ -24,7 +21,11 @@ const Search = () => {
           </h6>
           <div className="d-flex flex-wrap mt-4">
             {search.results?.map((item) => (
-              <div className="card m-2" style={{ width: "20rem" }}>
+              <div
+                className="card m-2"
+                style={{ width: "20rem" }}
+                key={item?._id}
+              >
                 <img
                   src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${item._id}`}
                   className="card-img-top"

@@ -5,7 +5,8 @@ import { Checkbox, Radio } from "antd";
 import { Price } from "../components/Pricefilter";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../context/cartContext";
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
+import { v4 as uuidv4 } from "uuid";
 
 const Homepage = () => {
   const navigate = useNavigate();
@@ -15,9 +16,6 @@ const Homepage = () => {
   const [radio, setRadio] = useState([]);
   const [category, setCategory] = useState([]);
   const [products, setProducts] = useState([]);
-  // const [total, setTotal] = useState(0);
-  // const [loading, setLoading] = useState(true);
-  // const [page, setPage] = useState(1);
 
   // fetching category
   const getAllCategories = async () => {
@@ -29,7 +27,7 @@ const Homepage = () => {
         setCategory(res.data.category);
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Error while fetching all categories");
     }
   };
   useEffect(() => {
@@ -48,7 +46,7 @@ const Homepage = () => {
         setProducts(res.data.product);
       }
     } catch (error) {
-      console.log(error);
+      toast.error("Error while fetching all products");
     }
   };
   useEffect(() => {
@@ -75,12 +73,16 @@ const Homepage = () => {
 
   // filter products
   const FilterProduct = async () => {
-    const res = await axios.post(
-      `${process.env.REACT_APP_API}/api/v1/product/filter-product`,
-      { checked, radio }
-    );
-    if (res.data.success) {
-      setProducts(res.data.products);
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API}/api/v1/product/filter-product`,
+        { checked, radio }
+      );
+      if (res.data.success) {
+        setProducts(res.data.products);
+      }
+    } catch (error) {
+      toast.error("Error occur while filteration");
     }
   };
 
@@ -160,7 +162,7 @@ const Homepage = () => {
                   width: "18rem",
                   backgroundColor: "rgba(128, 128, 128, 0.097)",
                 }}
-                key={item._id}
+                key={uuidv4()}
               >
                 <img
                   src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${item._id}`}

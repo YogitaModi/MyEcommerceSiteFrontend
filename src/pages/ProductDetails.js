@@ -47,84 +47,95 @@ const ProductDetails = () => {
   }, [params?.slug]);
 
   return (
-    <Layout>
-      <div className="row container mt-2">
-        <div className="col-md-6">
-          <img
-            src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${details._id}`}
-            className="card-img-top"
-            alt={details.name}
-            width={"200px"}
-            height={"450px"}
-          />
+    <Layout title={"Product Details - Chocolate Crisp"}>
+      <div className="container" style={{ backgroundColor: "#FEFCED" }}>
+        <div className="row container mt-2">
+          <div className="col-md-6 ">
+            <img
+              src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${details?._id}`}
+              className="card-img-top shadow"
+              alt={details.name}
+              width={"200px"}
+              height={"450px"}
+            />
+          </div>
+          <div className="col-md-6 text-center">
+            <h1>Product Details</h1>
+            <h4>{details?.name}</h4>
+            <p>
+              <strong>{details?.description}</strong>
+            </p>
+            <p>
+              Cost : <strong>INR {details?.price}</strong>
+            </p>
+            <p>
+              Category : <strong>{details?.category?.name}</strong>
+            </p>
+            <p>shipping : {details?.shipping}</p>
+            <button
+              className="btn btn-primary m-2"
+              onClick={(e) => {
+                localStorage.setItem(
+                  "cart",
+                  JSON.stringify([...cart, details])
+                );
+
+                setCart([...cart, details]);
+                toast.success("Product added to cart");
+              }}
+            >
+              Add to cart
+            </button>
+          </div>
         </div>
-        <div className="col-md-6">
-          <h1>Product Details</h1>
-          <h4>{details.name}</h4>
-          <p>
-            <strong>{details.description}</strong>
-          </p>
-          <p>
-            Cost : <strong>INR {details.price}</strong>
-          </p>
-          <p>Category : {details?.category?.name}</p>
-          <p>shipping : {details.shipping}</p>
-          <button
-            className="btn btn-secondary m-2"
-            onClick={(e) => {
-              localStorage.setItem("cart", JSON.stringify([...cart, details]));
+        <div className="row m-2">
+          <h1>Similar Products</h1>
+          {relatedProducts.length < 1 && (
+            <p className="text-center">No Similar Products found</p>
+          )}
+          <div className="d-flex flex-wrap mb-2">
+            {relatedProducts?.map((item) => (
+              <div
+                className="card m-2"
+                style={{ width: "20rem" }}
+                key={item?._id}
+              >
+                <img
+                  src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${item._id}`}
+                  className="card-img-top"
+                  alt={item.name}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{item.name}</h5>
+                  <p className="card-text">
+                    {item.description.substring(0, 30)}...
+                  </p>
 
-              setCart([...cart, details]);
-              toast.success("Product added to cart");
-            }}
-          >
-            Add to cart
-          </button>
-        </div>
-      </div>
-      <div className="row m-2">
-        <h1>Similar Products</h1>
-        {relatedProducts.length < 1 && (
-          <p className="text-center">No Similar Products found</p>
-        )}
-        <div className="d-flex flex-wrap mb-2">
-          {relatedProducts?.map((item) => (
-            <div className="card m-2" style={{ width: "20rem" }}>
-              <img
-                src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${item._id}`}
-                className="card-img-top"
-                alt={item.name}
-              />
-              <div className="card-body">
-                <h5 className="card-title">{item.name}</h5>
-                <p className="card-text">
-                  {item.description.substring(0, 30)}...
-                </p>
+                  <p className="card-text">INR : {item.price}</p>
+                  <button
+                    className="btn btn-primary ms-1"
+                    onClick={() => navigate(`/product-details/${item.slug}`)}
+                  >
+                    More Details
+                  </button>
 
-                <p className="card-text">INR : {item.price}</p>
-                <button
-                  className="btn btn-primary ms-1"
-                  onClick={() => navigate(`/product-details/${item.slug}`)}
-                >
-                  More Details
-                </button>
-
-                <button
-                  className="btn btn-secondary m-2"
-                  onClick={(e) => {
-                    localStorage.setItem(
-                      "cart",
-                      JSON.stringify([...cart, item])
-                    );
-                    setCart([...cart, item]);
-                    toast.success("Product added to cart");
-                  }}
-                >
-                  Add to cart
-                </button>
+                  <button
+                    className="btn btn-secondary m-2"
+                    onClick={(e) => {
+                      localStorage.setItem(
+                        "cart",
+                        JSON.stringify([...cart, item])
+                      );
+                      setCart([...cart, item]);
+                      toast.success("Product added to cart");
+                    }}
+                  >
+                    Add to cart
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </Layout>
