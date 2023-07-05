@@ -88,20 +88,10 @@ const Homepage = () => {
 
   return (
     <Layout title={"Best offers - Chocolate Crisp"}>
-      <div className="brand-name ">
-        <div className="row home-page text-center">
-          <div className="col-md-6 shadow ">
-            <h1 className="chocolate">CHOCOLATE CRISP</h1>
-            <img
-              className="shadow"
-              src="\images\banner_img.jpg"
-              style={{
-                width: "100%",
-                height: "100%",
-                marginLeft: "25vw",
-              }}
-              alt="Chocolate Crisp"
-            />
+      <div className="text-center brand-name ">
+        <div className="row home-page">
+          <div className="col-md-5 chocolate ">
+            <h1 className=" heading">CHOCOLATE CRISP</h1>
           </div>
         </div>
       </div>
