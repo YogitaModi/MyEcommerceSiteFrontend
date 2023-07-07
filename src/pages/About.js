@@ -15,7 +15,7 @@ const About = () => {
         </div>
         <div className="col-md-6 text-center">
           <h1>ABOUT US</h1>
-          <hr className="m-2" />
+          <hr className="mt-2" />
           <h3>Hello Everyone</h3>
           <p>
             I am From Rajasthan (<strong>INDIA</strong>) . I love to bake so, I
