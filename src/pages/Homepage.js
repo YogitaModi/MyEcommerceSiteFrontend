@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 const Homepage = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useCart();
-  const [heading, setHeading] = useEffect("ALL PRODUCTS");
+  const [heading, setHeading] = useState("ALL PRODUCTS");
 
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
@@ -80,7 +80,7 @@ const Homepage = () => {
         { checked, radio }
       );
       if (res?.data?.success) {
-        if (res?.data?.products.length > 1) {
+        if (res?.data?.products?.length > 1) {
           setHeading("FILTERED PRODUCTS");
         } else {
           setHeading("NO PRODUCTS FOUND");
