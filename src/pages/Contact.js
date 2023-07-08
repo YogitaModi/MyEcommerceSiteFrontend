@@ -18,7 +18,7 @@ const Contact = () => {
             className="shadow"
           />
         </div>
-        <div className="col-md-6 mt-2">
+        <div className="col-md-6 mt-4">
           <h1 className="bg-dark p-2 text-white text-center">CONTACT US</h1>
           <p className="text-justify mt-2">
             For any query and info about product feel free to call anytime we

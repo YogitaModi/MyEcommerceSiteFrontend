@@ -16,10 +16,8 @@ const Policy = () => {
             className="shadow"
           />
         </div>
-        <div className="col-md-6">
-          <h1 className="bg-dark text-light text-center mt-3 p-2">
-            Private Policy
-          </h1>
+        <div className="col-md-6 mt-4">
+          <h1 className="bg-dark text-light text-center p-2">Private Policy</h1>
           <p>privacy policy</p>
         </div>
       </div>

@@ -13,7 +13,7 @@ const About = () => {
             className="shadow"
           />
         </div>
-        <div className="col-md-6 text-center">
+        <div className="col-md-6 text-center mt-4">
           <h1>ABOUT US</h1>
           <hr className="mt-2" />
           <h3>Hello Everyone</h3>
