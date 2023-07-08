@@ -143,9 +143,12 @@ const Homepage = () => {
           </div>
         </div>
         <div className="col-md-9">
-          <h2 className="text-center mt-2">ALL PRODUCTS</h2>
+          {products?.length < 1 ? (
+            <h2 className="text-center mt-2">No product found</h2>
+          ) : (
+            <h2 className="text-center mt-2">ALL PRODUCTS</h2>
+          )}
           <div className="d-flex flex-wrap">
-            {products?.length < 1 && "No product found"}
             {products?.map((item) => (
               <div
                 className="card m-2"
