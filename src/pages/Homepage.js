@@ -44,6 +44,7 @@ const Homepage = () => {
       );
 
       if (res?.data.success) {
+        setHeading("ALL PRODUCTS");
         setProducts(res.data.product);
       }
     } catch (error) {
@@ -80,7 +81,7 @@ const Homepage = () => {
         { checked, radio }
       );
       if (res?.data?.success) {
-        if (res?.data?.products?.length > 1) {
+        if (res?.data?.products?.length >= 1) {
           setHeading("FILTERED PRODUCTS");
         } else {
           setHeading("NO PRODUCTS FOUND");
