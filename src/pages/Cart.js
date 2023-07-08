@@ -108,7 +108,10 @@ const Cart = () => {
   };
   return (
     <Layout title={"Your Cart - Chocolate Crisp"}>
-      <div className="container" style={{ backgroundColor: "#FEFCED" }}>
+      <div
+        className="container"
+        style={{ backgroundColor: "#FEFCED", marginTop: "60px" }}
+      >
         <div className="row">
           <div className="col-md-12">
             <h5 className="text-center  p-2 mb-2">
