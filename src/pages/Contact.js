@@ -6,7 +6,10 @@ import Layout from "../components/layout/Layout";
 const Contact = () => {
   return (
     <Layout title={"Contact us - Chocolate Crisp"}>
-      <div className="row" style={{ backgroundColor: "#FEFCED" }}>
+      <div
+        className="row"
+        style={{ backgroundColor: "#FEFCED", marginTop: "60px" }}
+      >
         <div className="col-md-6">
           <img
             src="\images\contactus.jpg"
@@ -18,8 +21,10 @@ const Contact = () => {
             className="shadow"
           />
         </div>
-        <div className="col-md-6 mt-4">
-          <h1 className="bg-dark p-2 text-white text-center">CONTACT US</h1>
+        <div className="col-md-6">
+          <h1 className="bg-dark p-2 text-white text-center mt-6">
+            CONTACT US
+          </h1>
           <p className="text-justify mt-2">
             For any query and info about product feel free to call anytime we
             24X7 available

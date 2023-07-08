@@ -4,7 +4,10 @@ import Layout from "../components/layout/Layout";
 const Policy = () => {
   return (
     <Layout title={"Private policy- Chocolate Crisp"}>
-      <div className="row" style={{ backgroundColor: "#FEFCED" }}>
+      <div
+        className="row"
+        style={{ backgroundColor: "#FEFCED", marginTop: "60px" }}
+      >
         <div className="col-md-6 ">
           <img
             src="\images\contactus.jpg"
@@ -16,7 +19,7 @@ const Policy = () => {
             className="shadow"
           />
         </div>
-        <div className="col-md-6 mt-4">
+        <div className="col-md-6">
           <h1 className="bg-dark text-light text-center p-2">Private Policy</h1>
           <p>privacy policy</p>
         </div>

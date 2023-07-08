@@ -4,8 +4,11 @@ import Layout from "../components/layout/Layout";
 const About = () => {
   return (
     <Layout title={"About us - Chocolate Crisp"}>
-      <div className="row" style={{ backgroundColor: "#FEFCED" }}>
-        <div className="col-md-6 ">
+      <div
+        className="row"
+        style={{ backgroundColor: "#FEFCED", marginTop: "60px" }}
+      >
+        <div className="col-md-6  ">
           <img
             src="\images\about.jpg"
             alt="About us"
@@ -13,7 +16,7 @@ const About = () => {
             className="shadow"
           />
         </div>
-        <div className="col-md-6 text-center mt-4">
+        <div className="col-md-6 text-center">
           <h1>ABOUT US</h1>
           <hr className="mt-2" />
           <h3>Hello Everyone</h3>

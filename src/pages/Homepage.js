@@ -97,7 +97,7 @@ const Homepage = () => {
     <Layout title={"Best offers - Chocolate Crisp"}>
       <div className="text-center brand-name ">
         <div className="row home-page">
-          <div className="col-md-5 chocolate ">
+          <div className="col-md-12 chocolate ">
             <h1 className=" heading">CHOCOLATE CRISP</h1>
           </div>
         </div>
@@ -108,8 +108,8 @@ const Homepage = () => {
           className="col-md-3 mt-3 "
           style={{ textTransform: "uppercase", alignContent: "center" }}
         >
-          <h6 className="text-center m-2">Filter by category</h6>
-          <div className="d-flex flex-column container-fluid m-3 p-3 ">
+          <h6 className="text-center mt-2 ">Filter by category</h6>
+          <div className="d-flex flex-column container-fluid  p-3 ">
             {category?.map((item) => (
               <Checkbox
                 key={item._id}
@@ -126,7 +126,7 @@ const Homepage = () => {
           <h6 className="text-center" style={{ textTransform: "uppercase" }}>
             Filter by Price
           </h6>
-          <div className="d-flex flex-column container-fluid m-3 p-3 ">
+          <div className="d-flex flex-column container-fluid  p-3 ">
             <Radio.Group onChange={(e) => setRadio(e.target.value)}>
               {Price?.map((p) => (
                 <div key={p._id}>
@@ -150,16 +150,11 @@ const Homepage = () => {
           </div>
         </div>
         <div className="col-md-9">
-          {/* {products?.length === 0 ? (
-            <h2 className="text-center mt-2">No product found</h2>
-          ) : (
-            <h2 className="text-center mt-2">ALL PRODUCTS</h2>
-          )} */}
           <h2 className="text-center mt-2">{heading}</h2>
           <div className="d-flex flex-wrap">
             {products?.map((item) => (
               <div
-                className="card m-2"
+                className="card m-2 "
                 style={{
                   width: "18rem",
                   backgroundColor: "rgba(128, 128, 128, 0.097)",
