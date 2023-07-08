@@ -143,7 +143,7 @@ const Homepage = () => {
           </div>
         </div>
         <div className="col-md-9">
-          {products?.length < 1 ? (
+          {products?.length === 0 ? (
             <h2 className="text-center mt-2">No product found</h2>
           ) : (
             <h2 className="text-center mt-2">ALL PRODUCTS</h2>
