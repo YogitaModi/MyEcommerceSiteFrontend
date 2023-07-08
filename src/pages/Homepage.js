@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 const Homepage = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useCart();
+  const [heading, setHeading] = useEffect("ALL PRODUCTS");
 
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
@@ -78,7 +79,12 @@ const Homepage = () => {
         `${process.env.REACT_APP_API}/api/v1/product/filter-product`,
         { checked, radio }
       );
-      if (res.data.success) {
+      if (res?.data?.success) {
+        if (res?.data?.products.length > 1) {
+          setHeading("FILTERED PRODUCTS");
+        } else {
+          setHeading("NO PRODUCTS FOUND");
+        }
         setProducts(res.data.products);
       }
     } catch (error) {
@@ -143,11 +149,12 @@ const Homepage = () => {
           </div>
         </div>
         <div className="col-md-9">
-          {products?.length === 0 ? (
+          {/* {products?.length === 0 ? (
             <h2 className="text-center mt-2">No product found</h2>
           ) : (
             <h2 className="text-center mt-2">ALL PRODUCTS</h2>
-          )}
+          )} */}
+          <h2 className="text-center mt-2">{heading}</h2>
           <div className="d-flex flex-wrap">
             {products?.map((item) => (
               <div

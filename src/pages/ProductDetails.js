@@ -49,7 +49,7 @@ const ProductDetails = () => {
   return (
     <Layout title={"Product Details - Chocolate Crisp"}>
       <div className="container" style={{ backgroundColor: "#FEFCED" }}>
-        <div className="row container mt-2">
+        <div className="row container mt-3">
           <div className="col-md-6 ">
             <img
               src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${details?._id}`}
