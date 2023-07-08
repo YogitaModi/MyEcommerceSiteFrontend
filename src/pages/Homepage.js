@@ -81,7 +81,7 @@ const Homepage = () => {
         { checked, radio }
       );
       if (res?.data?.success) {
-        if (res?.data?.products?.length >= 1) {
+        if (res?.data?.products?.length > 0) {
           setHeading("FILTERED PRODUCTS");
         } else {
           setHeading("NO PRODUCTS FOUND");
