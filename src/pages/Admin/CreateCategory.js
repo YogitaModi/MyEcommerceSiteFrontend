@@ -112,8 +112,12 @@ const CreateCategory = () => {
   return (
     <Layout title={"Dashboard - Create Category - Chocolate Crisp"}>
       <div
-        className="container-fluid m-3 p-3"
-        style={{ backgroundColor: "#FEFCED", height: "100vh" }}
+        className="container-fluid p-3"
+        style={{
+          backgroundColor: "#FEFCED",
+          height: "100vh",
+          marginTop: "65px",
+        }}
       >
         <div className="row">
           <div className="col-md-3">

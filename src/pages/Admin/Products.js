@@ -31,8 +31,8 @@ const Products = () => {
   return (
     <Layout title={"Product Page - Chocolate Crisp"}>
       <div
-        className="container-fluid m-3 p-3"
-        style={{ backgroundColor: "#FEFCED" }}
+        className="container-fluid p-3"
+        style={{ backgroundColor: "#FEFCED", marginTop: "65px" }}
       >
         <div className="row">
           <div className="col-md-3">
