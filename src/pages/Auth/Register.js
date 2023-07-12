@@ -47,9 +47,9 @@ const Register = () => {
     <Layout title={"Register now- Chocolate Crisp"}>
       <div
         className="form-container title"
-        style={{ backgroundColor: "#FEFCED" }}
+        style={{ backgroundColor: "#FEFCED", marginTop: "65px" }}
       >
-        <h1 className="title">Register Page</h1>
+        <h1 className="title">CREATE ACCOUNT</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="name" className="form-label">

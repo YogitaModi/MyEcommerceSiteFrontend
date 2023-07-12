@@ -33,15 +33,15 @@ const Order = () => {
   return (
     <Layout title={"Dashboard - Orders"}>
       <div
-        className="container-fluid m-3  p-3"
-        style={{ backgroundColor: "#FEFCED" }}
+        className="container-fluid p-3"
+        style={{ backgroundColor: "#FEFCED", marginTop: "65px" }}
       >
         <div className="row">
           <div className="col-md-2">
             <Usermenu />
           </div>
           <div className="col-md-9">
-            <h1 className="text-center">All orders</h1>
+            <h1 className="text-center">ALL ORDERS</h1>
             {orders?.map((item, index) => {
               return (
                 <div className="border shadow" key={item._id}>

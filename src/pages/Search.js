@@ -11,7 +11,10 @@ const Search = () => {
   const [cart, setCart] = useCart();
   return (
     <Layout title="Search - Results Chocolate Crisp">
-      <div className="container" style={{ backgroundColor: "#FEFCED" }}>
+      <div
+        className="container"
+        style={{ backgroundColor: "#FEFCED", marginTop: "65px" }}
+      >
         <div className="text-center">
           <h1>Search Results</h1>
           <h6>

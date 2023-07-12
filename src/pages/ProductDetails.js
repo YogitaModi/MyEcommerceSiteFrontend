@@ -48,7 +48,10 @@ const ProductDetails = () => {
 
   return (
     <Layout title={"Product Details - Chocolate Crisp"}>
-      <div className="container" style={{ backgroundColor: "#FEFCED" }}>
+      <div
+        className="container"
+        style={{ backgroundColor: "#FEFCED", marginTop: "65px" }}
+      >
         <div className="row container mt-3">
           <div className="col-md-6 ">
             <img
@@ -71,7 +74,9 @@ const ProductDetails = () => {
             <p>
               Category : <strong>{details?.category?.name}</strong>
             </p>
-            <p>shipping : {details?.shipping}</p>
+            <p>
+              shipping : {details?.shipping ? "Available" : "Not Available"}
+            </p>
             <button
               className="btn btn-primary m-2"
               onClick={(e) => {
