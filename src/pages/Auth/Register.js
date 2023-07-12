@@ -124,7 +124,7 @@ const Register = () => {
           </div>
           <div className="mb-3">
             <label htmlFor="answer" className="form-label">
-              What is the name of your primary school?
+              Which is your favourite Chocolate?
             </label>
             <input
               type="text"
