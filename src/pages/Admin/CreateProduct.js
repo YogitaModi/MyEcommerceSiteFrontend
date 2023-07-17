@@ -12,7 +12,7 @@ const CreateProduct = () => {
   const [auth] = useAuth();
   const navigate = useNavigate();
   const { Option } = Select;
-  const categories = useCategory();
+  const [categories] = useCategory();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");

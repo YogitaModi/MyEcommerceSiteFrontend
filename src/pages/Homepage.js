@@ -12,7 +12,7 @@ const Homepage = () => {
   const navigate = useNavigate();
   const [cart, setCart] = useCart();
   const [heading, setHeading] = useState("ALL PRODUCTS");
-
+  const [loading, setLoading] = useState(true);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
   const [category, setCategory] = useState([]);
@@ -21,13 +21,16 @@ const Homepage = () => {
   // fetching category
   const getAllCategories = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(
         `${process.env.REACT_APP_API}/api/v1/category/get-categories`
       );
       if (res?.data.success) {
+        setLoading(false);
         setCategory(res.data.category);
       }
     } catch (error) {
+      setLoading(false);
       toast.error("Error while fetching all categories");
     }
   };
@@ -39,15 +42,18 @@ const Homepage = () => {
   // fetching product
   const getAllProducts = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(
         `${process.env.REACT_APP_API}/api/v1/product/get-products`
       );
 
       if (res?.data.success) {
+        setLoading(false);
         setHeading("ALL PRODUCTS");
         setProducts(res.data.product);
       }
     } catch (error) {
+      setLoading(false);
       toast.error("Error while fetching all products");
     }
   };
@@ -76,19 +82,24 @@ const Homepage = () => {
   // filter products
   const FilterProduct = async () => {
     try {
+      setLoading(true);
       const res = await axios.post(
         `${process.env.REACT_APP_API}/api/v1/product/filter-product`,
         { checked, radio }
       );
       if (res?.data?.success) {
         if (res?.data?.products?.length > 0) {
+          setLoading(false);
           setHeading("FILTERED PRODUCTS");
         } else {
+          setLoading(false);
           setHeading("NO PRODUCTS FOUND");
         }
+
         setProducts(res.data.products);
       }
     } catch (error) {
+      setLoading(false);
       toast.error("Error occur while filteration");
     }
   };
@@ -151,54 +162,62 @@ const Homepage = () => {
         </div>
         <div className="col-md-9">
           <h2 className="text-center mt-2">{heading}</h2>
-          <div className="d-flex flex-wrap">
-            {products?.map((item) => (
-              <div
-                className="card m-2 "
-                style={{
-                  width: "18rem",
-                  backgroundColor: "rgba(128, 128, 128, 0.097)",
-                }}
-                key={uuidv4()}
-              >
-                <img
-                  src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${item._id}`}
-                  className="card-img-top"
-                  style={{ padding: "4px" }}
-                  alt={item.name}
-                />
-                <div className="card-body">
-                  <h5 className="card-title">{item.name}</h5>
-                  <p className="card-text">
-                    {item.description.substring(0, 30)}...
-                  </p>
-
-                  <p className="card-text">INR : {item.price}</p>
-
-                  <button
-                    onClick={() => {
-                      navigate(`/product-details/${item.slug}`);
-                    }}
-                    className="btn btn-primary m-2"
-                  >
-                    More details
-                  </button>
-                  <button
-                    className="btn btn-secondary m-2"
-                    onClick={() => {
-                      localStorage.setItem(
-                        "cart",
-                        JSON.stringify([...cart, item])
-                      );
-                      setCart([...cart, item]);
-                      toast.success("Product added to cart successfully");
-                    }}
-                  >
-                    Add to cart
-                  </button>
-                </div>
+          {loading && (
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
               </div>
-            ))}
+            </div>
+          )}
+          <div className="d-flex flex-wrap">
+            {!loading &&
+              products?.map((item) => (
+                <div
+                  className="card m-2 "
+                  style={{
+                    width: "18rem",
+                    backgroundColor: "rgba(128, 128, 128, 0.097)",
+                  }}
+                  key={uuidv4()}
+                >
+                  <img
+                    src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${item._id}`}
+                    className="card-img-top"
+                    style={{ padding: "4px" }}
+                    alt={item.name}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{item.name}</h5>
+                    <p className="card-text">
+                      {item.description.substring(0, 30)}...
+                    </p>
+
+                    <p className="card-text">INR : {item.price}</p>
+
+                    <button
+                      onClick={() => {
+                        navigate(`/product-details/${item.slug}`);
+                      }}
+                      className="btn btn-primary m-2"
+                    >
+                      More details
+                    </button>
+                    <button
+                      className="btn btn-secondary m-2"
+                      onClick={() => {
+                        localStorage.setItem(
+                          "cart",
+                          JSON.stringify([...cart, item])
+                        );
+                        setCart([...cart, item]);
+                        toast.success("Product added to cart successfully");
+                      }}
+                    >
+                      Add to cart
+                    </button>
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       </div>

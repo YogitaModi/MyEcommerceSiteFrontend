@@ -8,19 +8,23 @@ import { Link } from "react-router-dom";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   //   fetching products from database
   const gettingAllProducts = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(
         `${process.env.REACT_APP_API}/api/v1/product/get-products`
       );
       if (res?.data?.success) {
+        setLoading(false);
         toast.success(res.data.message);
 
         setProducts(res.data.product);
       }
     } catch (error) {
+      setLoading(false);
       toast.error("Something went wrong");
     }
   };
@@ -40,32 +44,42 @@ const Products = () => {
           </div>
           <div className="col-md-9">
             <h1 className="text-center">All Products</h1>
+            {loading && (
+              <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            )}
             <div className="d-flex flex-wrap">
-              {products?.map((p) => (
-                <Link
-                  to={`/dashboard/admin/product/${p.slug}`}
-                  style={{ textDecoration: "none" }}
-                >
-                  <div
-                    className="card m-2"
-                    key={uuidv4()}
-                    style={{ width: "20rem", minHeight: "36rem" }}
+              {!loading &&
+                products?.map((p) => (
+                  <Link
+                    to={`/dashboard/admin/product/${p.slug}`}
+                    style={{ textDecoration: "none" }}
                   >
-                    <img
-                      src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${p._id}`}
-                      className="card-img-top p-3"
-                      alt={p.name}
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{p.name}</h5>
-                      <p className="card-text">{p.description}</p>
-                      <p className="card-text">Price : {p.price}</p>
-                      <p className="card-text">Category : {p.category.name}</p>
-                      <p className="card-text">{p.shipping}</p>
+                    <div
+                      className="card m-2"
+                      key={uuidv4()}
+                      style={{ width: "20rem", minHeight: "36rem" }}
+                    >
+                      <img
+                        src={`${process.env.REACT_APP_API}/api/v1/product/product-image/${p._id}`}
+                        className="card-img-top p-3"
+                        alt={p.name}
+                      />
+                      <div className="card-body">
+                        <h5 className="card-title">{p.name}</h5>
+                        <p className="card-text">{p.description}</p>
+                        <p className="card-text">Price : {p.price}</p>
+                        <p className="card-text">
+                          Category : {p.category.name}
+                        </p>
+                        <p className="card-text">{p.shipping}</p>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
             </div>
           </div>
         </div>

@@ -8,9 +8,13 @@ import moment from "moment";
 
 const Order = () => {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [auth] = useAuth();
+
+  // api call for fetching all orders
   const getAllOrders = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(
         `${process.env.REACT_APP_API}/api/v1/auth/orders`,
         {
@@ -20,9 +24,11 @@ const Order = () => {
         }
       );
       if (res) {
+        setLoading(false);
         setOrders(res?.data);
       }
     } catch (error) {
+      setLoading(false);
       toast.error("Error while fetching orders");
     }
   };
@@ -42,6 +48,13 @@ const Order = () => {
           </div>
           <div className="col-md-9">
             <h1 className="text-center">ALL ORDERS</h1>
+            {loading && (
+              <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            )}
             {orders?.map((item, index) => {
               return (
                 <div className="border shadow" key={item._id}>

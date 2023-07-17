@@ -3,7 +3,7 @@ import Layout from "../components/layout/Layout";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../context/cartContext";
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const ProductDetails = () => {
   const [details, setDetails] = useState({});

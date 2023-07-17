@@ -7,17 +7,23 @@ import { useAuth } from "../../context/authContext";
 
 const Users = () => {
   const [auth] = useAuth();
+  const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
+
+  // api call for fetching all users
   const getAllUsers = async () => {
     try {
+      setLoading(true);
       const res = await axios.get(
         `${process.env.REACT_APP_API}/api/v1/auth/all-users`,
         { headers: { Authorization: auth?.authtoken } }
       );
       if (res?.data?.success) {
+        setLoading(false);
         setUsers(res?.data?.users);
       }
     } catch (error) {
+      setLoading(false);
       toast.error("Error while fetching all users");
     }
   };
@@ -42,6 +48,13 @@ const Users = () => {
           </div>
           <div className="col-md-8">
             <h1>Users page</h1>
+            {loading && (
+              <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+            )}
             <div className="border shadow">
               <table className="table table-striped table-hover">
                 <thead>
@@ -56,19 +69,20 @@ const Users = () => {
                 </thead>
 
                 <tbody>
-                  {users?.map((item, index) => {
-                    return (
-                      <tr>
-                        <td>{index + 1}</td>
+                  {!loading &&
+                    users?.map((item, index) => {
+                      return (
+                        <tr>
+                          <td>{index + 1}</td>
 
-                        <td>{item?.name}</td>
-                        <td>{item?.email}</td>
-                        <td>{item?.phone}</td>
-                        <td>{item?.address}</td>
-                        <td>{item?.date}</td>
-                      </tr>
-                    );
-                  })}
+                          <td>{item?.name}</td>
+                          <td>{item?.email}</td>
+                          <td>{item?.phone}</td>
+                          <td>{item?.address}</td>
+                          <td>{item?.date}</td>
+                        </tr>
+                      );
+                    })}
                 </tbody>
               </table>
             </div>
