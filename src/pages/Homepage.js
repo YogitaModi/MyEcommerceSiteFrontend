@@ -120,18 +120,26 @@ const Homepage = () => {
           style={{ textTransform: "uppercase", alignContent: "center" }}
         >
           <h6 className="text-center mt-2 ">Filter by category</h6>
+          {loading && (
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            </div>
+          )}
           <div className="d-flex flex-column container-fluid  p-3 ">
-            {category?.map((item) => (
-              <Checkbox
-                key={item._id}
-                value={item.name}
-                onChange={(e) => {
-                  handleFilterByCategory(e.target.checked, item._id);
-                }}
-              >
-                <p className="filter">{item.name}</p>
-              </Checkbox>
-            ))}
+            {!loading &&
+              category?.map((item) => (
+                <Checkbox
+                  key={item._id}
+                  value={item.name}
+                  onChange={(e) => {
+                    handleFilterByCategory(e.target.checked, item._id);
+                  }}
+                >
+                  <p className="filter">{item.name}</p>
+                </Checkbox>
+              ))}
           </div>
           <hr />
           <h6 className="text-center" style={{ textTransform: "uppercase" }}>
