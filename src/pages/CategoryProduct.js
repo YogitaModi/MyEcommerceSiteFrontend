@@ -35,10 +35,13 @@ const CategoryProduct = () => {
         style={{ backgroundColor: "#FEFCED", marginTop: "65px" }}
       >
         <h4 className="text-center">Category {category?.name}</h4>
+
         <h6 className="text-center">
-          {products?.length < 1
-            ? "No products to display"
-            : `${products?.length} Product found`}
+          {products?.length < 1 ? (
+            <img src="/images/choco.png" alt="No products to display" />
+          ) : (
+            `${products?.length} Product found`
+          )}
         </h6>
         {loading && (
           <div class="d-flex justify-content-center">

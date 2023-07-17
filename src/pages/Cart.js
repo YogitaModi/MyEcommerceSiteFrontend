@@ -130,7 +130,7 @@ const Cart = () => {
           <div className="col-md-8">
             {cart?.length < 1 && (
               <img
-                src="/images/cart.jpg"
+                src="/images/cart.png"
                 style={{
                   width: "40vw",
                   height: "80vh",
