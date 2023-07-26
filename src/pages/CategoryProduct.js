@@ -37,7 +37,7 @@ const CategoryProduct = () => {
         <h4 className="text-center">Category {category?.name}</h4>
 
         <h6 className="text-center">
-          {products?.length < 1 ? (
+          {products?.length < 1 && !loading ? (
             <img src="/images/choco.png" alt="No products to display" />
           ) : (
             `${products?.length} Product found`
