@@ -105,7 +105,7 @@ const Homepage = () => {
   };
 
   return (
-    <Layout title={"Best offers - Chocolate Crisp"}>
+    <Layout title={"Exotic taste - Chocolate Crisp"}>
       <div className="text-center brand-name mt-4">
         <div className="row home-page">
           <div className="col-md-12 chocolate ">
